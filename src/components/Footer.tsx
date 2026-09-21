@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenBooking }) => 
               <img
                 src="/images/logo.png"
                 alt="Sima Deli"
-                className="h-10 w-auto brightness-200 contrast-125"
+                className="h-10 w-auto object-contain"
                 width="40"
                 height="40"
               />
