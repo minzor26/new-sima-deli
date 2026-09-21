@@ -78,10 +78,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
                   <span className="text-[11px] uppercase tracking-widest text-[#CDEBF2] block font-semibold">
                     Signaturrätt
                   </span>
-                  <p className="font-serif text-2xl font-bold">Baghali-Polo Mahiche</p>
-                  <p className="text-xs text-white/80 line-clamp-1">
-                    Långkokt lammlägg med saffransris, dill & bondbönor
-                  </p>
                 </div>
               </div>
 
