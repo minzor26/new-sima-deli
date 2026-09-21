@@ -9,7 +9,6 @@ import { CateringPage } from './pages/CateringPage';
 import { MatladorPage } from './pages/MatladorPage';
 import { HemleveransPage } from './pages/HemleveransPage';
 import { SimaExpressPage } from './pages/SimaExpressPage';
-import { SubscriptionPage } from './pages/SubscriptionPage';
 import { KontaktPage } from './pages/KontaktPage';
 import { BookingPage } from './pages/BookingPage';
 
@@ -46,7 +45,6 @@ export function App() {
       '/sima-deli-matlador/': 'Sima Deli Matlådor | Återförsäljare i Butik runt Stockholm',
       '/hemleverans/': 'Hemleverans | Sima Deli via Wolt, Foodora & Uber Eats',
       '/sima-express/': 'Sima Express | Snabb leverans från Sima Deli',
-      '/subscription/': 'Subscription | Bli medlem i Sima Deli Vänner',
       '/kontakt/': 'Kontakt & Öppettider | Sima Deli Valhallavägen 120',
       '/booking/': 'Boka Bord Online | Sima Deli Stockholm'
     };
@@ -79,8 +77,6 @@ export function App() {
         return <HemleveransPage onNavigate={handleNavigate} />;
       case '/sima-express/':
         return <SimaExpressPage onNavigate={handleNavigate} />;
-      case '/subscription/':
-        return <SubscriptionPage />;
       case '/kontakt/':
         return <KontaktPage />;
       case '/booking/':

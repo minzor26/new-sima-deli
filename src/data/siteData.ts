@@ -87,7 +87,6 @@ export const NAV_LINKS = [
   { name: "Catering", path: "/catering/" },
   { name: "Sima Deli matlådor", path: "/sima-deli-matlador/" },
   { name: "Hemleverans", path: "/hemleverans/" },
-  { name: "Subscription", path: "/subscription/" },
   { name: "Kontakt", path: "/kontakt/" }
 ];
 

@@ -24,10 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
           
           {/* Left: Editorial Headline & Copy */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#CDEBF2] border border-[#B8E2EC] text-xs font-semibold tracking-wider uppercase text-[#1E5F6E] shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Valhallavägen 120, Stockholm</span>
-            </div>
+
 
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-[#1C1917] leading-[1.08]">
               Smaker från Iran <br />
@@ -104,16 +101,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
                 </div>
               </div>
 
-              {/* Floating Badge */}
-              <div className="absolute -top-4 -right-4 sm:-right-6 bg-[#CDEBF2] border border-[#B8E2EC] rounded-2xl p-3 shadow-lg flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#C6A04A] shadow-2xs">
-                  <Heart className="w-5 h-5 fill-[#C6A04A]" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-[#1C1917]">Hemlagat</p>
-                  <p className="text-[11px] text-[#1E5F6E] font-medium">Varje dag från grunden</p>
-                </div>
-              </div>
+
 
             </div>
           </div>
@@ -206,11 +194,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
                   className="w-full h-full object-cover image-zoom-target"
                   loading="lazy"
                 />
-                {dish.price && (
-                  <div className="absolute top-3 right-3 bg-[#CDEBF2] border border-[#B8E2EC] px-3 py-1 rounded-full text-xs font-bold text-[#1E5F6E] shadow-xs">
-                    {dish.price}
-                  </div>
-                )}
+
                 {dish.isVegan && (
                   <div className="absolute bottom-3 left-3 bg-[#CDEBF2] text-[#1E5F6E] border border-[#B8E2EC] px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider">
                     Vegan
