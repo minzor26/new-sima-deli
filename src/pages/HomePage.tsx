@@ -1,7 +1,7 @@
 import React from 'react';
 import { RESTAURANT_INFO, MENU_ITEMS } from '../data/siteData';
 import { DeliveryCards } from '../components/DeliveryCards';
-import { Calendar, UtensilsCrossed, ArrowRight, Heart, Sparkles } from 'lucide-react';
+import { Calendar, UtensilsCrossed, ArrowRight } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (path: string) => void;
