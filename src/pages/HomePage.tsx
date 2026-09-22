@@ -25,19 +25,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
           {/* Left: Editorial Headline & Copy */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
 
-            {/* Sima Deli Brand Badge */}
-            <div className="inline-flex items-center gap-2.5 bg-[#CDEBF2]/70 border border-[#B8E2EC] px-4 py-2 rounded-full shadow-2xs">
-              <img src="/images/logo.png" alt="Sima Deli Logo" className="h-6 w-auto object-contain" />
-              <span className="font-serif text-xs font-bold uppercase tracking-widest text-[#1E5F6E]">
-                SIMA DELI • STOCKHOLM
-              </span>
+            {/* Sima Deli Prominent Brand Logo & Title */}
+            <div className="flex flex-col items-center lg:items-start gap-3">
+              <img
+                src="/images/logo.png"
+                alt="Sima Deli Logo"
+                className="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-xs"
+              />
+              <div className="flex flex-col items-center lg:items-start">
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1C1917]">
+                  SIMA DELI
+                </h1>
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#C6A04A] mt-1">
+                  Persisk Deli & Restaurang • Stockholm
+                </span>
+              </div>
             </div>
-
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-[#1C1917] leading-[1.08]">
-              Smaker från Iran <br />
-              <span className="italic font-normal text-[#C6A04A]">med mammas kärlek</span> <br />
-              och tradition.
-            </h1>
 
             <p className="text-base sm:text-lg text-[#57534E] max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
               {RESTAURANT_INFO.storySnippet}

@@ -106,7 +106,7 @@ export const MENU_ITEMS: MenuItem[] = [
   // Varma persiska rätter
   {
     id: "zereshk-polo",
-    name: "Zereshkpolo",
+    name: "Zereshkpolo ba Morgh",
     category: "Varma persiska rätter",
     description: "Marinerad kycklingfilé i tomatsås, serveras med saffranris, zereshk (berberis bär) och pistagenötter.",
     price: "189 kr",
@@ -114,7 +114,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "gheymeh",
-    name: "GHEYMEH",
+    name: "Gheymeh",
     category: "Varma persiska rätter",
     description: "Köttgryta med gula linser, körsbärstomater, torkade lime, serveras med saffran ris.",
     price: "189 kr",
@@ -132,7 +132,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "ghormeh-sabzi",
-    name: "GHORMEH-SABZI",
+    name: "Ghormeh-Sabzi",
     category: "Varma persiska rätter",
     description: "Köttgryta med örter, bönor och torkade lime, serveras med saffran ris.",
     price: "189 kr",
@@ -140,7 +140,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "baghali-polo",
-    name: "BAGHALI-POLO MAHICHE",
+    name: "Baghali-Polo Mahiche",
     category: "Varma persiska rätter",
     description: "Lång-kokt lammlägg serveras med saffranris med bondbönor och dill.",
     price: "259 kr",
@@ -165,7 +165,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "veg-ghormeh-sabzi",
-    name: "VEG. GHORMEH-SABZI",
+    name: "Veg. Ghormeh-Sabzi",
     category: "Varma persiska rätter",
     description: "Gryta med örter, bönor och torkade lime, serveras med saffran ris.",
     price: "189 kr",
@@ -174,7 +174,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "ash-reshte",
-    name: "ASH RESHTE",
+    name: "Ash Reshte",
     category: "Varma persiska rätter",
     description: "Vegetarisk ört soppa med bönor och nudlar.",
     price: "119 kr",
@@ -199,26 +199,26 @@ export const MENU_ITEMS: MenuItem[] = [
     price: "189 kr",
     image: "/images/mazeh-tallrik.jpg",
     subItems: [
-      { name: "MORGH", description: "Ugns grillad kycklingfilé" },
-      { name: "KOO-KOO", description: "Vegetarisk ört omelett med Zereshk (berberis bär), örter och vitlök" },
-      { name: "OLOVIEH", description: "Kyckling röra med potatis, ägg, majonnäs, ärtor och saltgurka" },
-      { name: "BAGHALI-POLO (vegetarisk)", description: "Saffran ris med dill och bondbönor" },
-      { name: "KASHKE-BADEMJAN", description: "Ugnsrostade auberginer i röra med matlagnings- yoghurt, rostad lök, färsk vitlök, valnötter, mynta" },
-      { name: "HUMMUS (Vegan Friendly)", description: "Kikärter, tahini, olivolja, färsk vitlök och citron juice" }
+      { name: "Morgh", description: "Ugnsgrillad kycklingfilé" },
+      { name: "Koo-koo", description: "Vegetarisk ört-omelett med Zereshk (berberis bär), örter och vitlök" },
+      { name: "Olovie", description: "Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka" },
+      { name: "Baghali-Polo (vegetarisk)", description: "Saffranris med dill och bondbönor" },
+      { name: "Kashke-Bademjan", description: "Ugnsrostade auberginer i röra med matlagningsyoghurt, rostad lök, färsk vitlök, valnötter, mynta" },
+      { name: "Hummus (Vegan Friendly)", description: "Kikärter, tahini, olivolja, färsk vitlök och citronjuice" }
     ]
   },
 
   // Sallader
   {
     id: "grillad-kyckling-sallad",
-    name: "GRILLAD KYCKLINGFILÉ SALLAD",
+    name: "Grillad Kycklingfilé Sallad",
     category: "Sallader",
     description: "Serveras med blandsallad, gurka och tomat och säsongs grönsaker. Välj mellan Fetaost och avokado eller Chevré och rödbetor.",
     price: "159 kr"
   },
   {
     id: "grillad-halloumi-sallad",
-    name: "GRILLAD HALLOUMI SALLAD",
+    name: "Grillad Halloumi Sallad",
     category: "Sallader",
     description: "Serveras med blandsallad, gurka och tomat och säsongs grönsaker, ugnsrostad aubergine, avokado crème, säsongens frukt.",
     price: "169 kr",
@@ -228,7 +228,7 @@ export const MENU_ITEMS: MenuItem[] = [
   // Wraps
   {
     id: "panir-sabzi-wrap",
-    name: "PANIR SABZI WRAP",
+    name: "Panir Sabzi Wrap",
     category: "Wraps",
     description: "Fetaost, valnötter, mynta, gurka, tomat.",
     price: "119 kr",
@@ -236,7 +236,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "koo-koo-wrap",
-    name: "KOO-KOO WRAP",
+    name: "Koo-Koo Wrap",
     category: "Wraps",
     description: "Ört omelett med Zereshk (berberis bär), sallad, tomat, saltgurka.",
     price: "119 kr",
@@ -244,7 +244,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "morgh-wrap",
-    name: "MORGH WRAP",
+    name: "Morgh Wrap",
     category: "Wraps",
     description: "Kyckling, bulgur, hummus, pickles, tomat, persilja.",
     price: "119 kr"
@@ -270,7 +270,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "mastokhiar",
-    name: "MASTOKHIAR",
+    name: "Mastokhiar",
     category: "Tillbehör & Mazeh",
     description: "Yoghurt blandad med gurka och mynta.",
     price: "39 kr",
@@ -287,7 +287,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "zeytoon-parvardeh",
-    name: "ZEYTOON PARVARDEH",
+    name: "Zeytoon Parvardeh",
     category: "Tillbehör & Mazeh",
     description: "Oliver marinerat med granatäpple, vitlök, valnötter, mynta, örter.",
     price: "49 kr",
@@ -312,7 +312,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "kashke-bademjan-skal",
-    name: "KASHKE-BADEMJAN",
+    name: "Kashke-Bademjan",
     category: "Tillbehör & Mazeh",
     description: "Vegetarisk ugnsrostade auberginer i röra med matlagnings-yoghurt, rostad lök, färsk vitlök, valnötter och mynta.",
     price: "Liten 95 kr / Stor 179 kr",
@@ -320,7 +320,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "hummus-skal",
-    name: "HUMMUS",
+    name: "Hummus",
     category: "Tillbehör & Mazeh",
     description: "Kikärter, tahini, olivolja, färsk vitlök och citron juice.",
     price: "Liten 89 kr / Stor 169 kr",
@@ -340,7 +340,7 @@ export const MENU_ITEMS: MenuItem[] = [
   // Persisk frukost
   {
     id: "nimro",
-    name: "NIMRO",
+    name: "Nimro",
     category: "Persisk frukost",
     description: "Stekta ägg med barbari bröd.",
     price: "89 kr",
@@ -349,7 +349,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "noon-panir",
-    name: "NOON PANIR",
+    name: "Noon Panir",
     category: "Persisk frukost",
     description: "Bröd, fetaost, gurka, tomat.",
     price: "89 kr",
@@ -358,7 +358,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "persisk-omelett",
-    name: "PERSISK OMELETT",
+    name: "Persisk Omelett",
     category: "Persisk frukost",
     description: "Ägg med färska tomater och barbari bröd.",
     price: "139 kr",
@@ -367,7 +367,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "sobhane-tallrik",
-    name: "SOBHANE TALLRIK",
+    name: "Sobhane Tallrik",
     category: "Persisk frukost",
     description: "Smör, mascarpone, marmelad/honung, fetaost, gurka, tomater, färska örter, halvardeh, oliver och valnötter.",
     price: "149 kr",
@@ -376,7 +376,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "halim",
-    name: "HALIM",
+    name: "Halim",
     category: "Persisk frukost",
     description: "Persisk gröt (innehåller kött, vete, smör).",
     price: "119 kr",
@@ -384,7 +384,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "extra-barbari",
-    name: "Extra Barbari bröd",
+    name: "Extra Barbari Bröd",
     category: "Persisk frukost",
     description: "Nybakat traditionellt persiskt barbari bröd.",
     price: "20 kr",
@@ -404,7 +404,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "baklava",
-    name: "BAKLAVA",
+    name: "Baklava",
     category: "Något sött",
     description: "Klassisk krispig baklava (innehåller även smör och nötter).",
     price: "39 kr",
@@ -412,7 +412,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "shirini",
-    name: "SHIRINI",
+    name: "Shirini",
     category: "Något sött",
     description: "Persiska kakor (innehåller även smör och nötter).",
     price: "39 kr",
