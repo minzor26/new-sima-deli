@@ -25,6 +25,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
           {/* Left: Editorial Headline & Copy */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
 
+            {/* Sima Deli Brand Badge */}
+            <div className="inline-flex items-center gap-2.5 bg-[#CDEBF2]/70 border border-[#B8E2EC] px-4 py-2 rounded-full shadow-2xs">
+              <img src="/images/logo.png" alt="Sima Deli Logo" className="h-6 w-auto object-contain" />
+              <span className="font-serif text-xs font-bold uppercase tracking-widest text-[#1E5F6E]">
+                SIMA DELI • STOCKHOLM
+              </span>
+            </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-[#1C1917] leading-[1.08]">
               Smaker från Iran <br />

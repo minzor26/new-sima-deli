@@ -106,10 +106,11 @@ export const MENU_ITEMS: MenuItem[] = [
   // Varma persiska rätter
   {
     id: "zereshk-polo",
-    name: "ZERESHK-POLO BA MORGH",
+    name: "Zereshkpolo",
     category: "Varma persiska rätter",
-    description: "Marinerad kycklingfilé i tomatsås, serveras med saffranris, zereshk (berberis bär).",
-    price: "189 kr"
+    description: "Marinerad kycklingfilé i tomatsås, serveras med saffranris, zereshk (berberis bär) och pistagenötter.",
+    price: "189 kr",
+    image: "/images/zereshk-polo.jpg"
   },
   {
     id: "gheymeh",
@@ -121,12 +122,13 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "veg-gheymeh",
-    name: "VEG. GHEYMEH – Bademjan",
+    name: "Vegan Ghymeh Bademjan",
     category: "Varma persiska rätter",
     description: "Gryta med gula linser, körsbärstomater, torkad lime och ugnsrostade auberginer serveras med saffran ris.",
     price: "189 kr",
     isVegan: true,
-    note: "Vegan Friendly"
+    note: "Vegan Friendly",
+    image: "/images/vegan-gheymeh-bademjan.jpg"
   },
   {
     id: "ghormeh-sabzi",
@@ -146,11 +148,20 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "tahchin",
-    name: "TAHCHIN",
+    name: "Tahchin",
     category: "Varma persiska rätter",
     description: "Marinerat kyckling i yoghurt och ägg tillagad tillsammans som en “Rice-Cake” med saffran ris, toppad med zereshk (berberis bär).",
     price: "189 kr",
-    note: "Serveras endast på lördagar"
+    note: "Serveras endast på lördagar",
+    image: "/images/tahchin.jpg"
+  },
+  {
+    id: "zaboon",
+    name: "Zaboon",
+    category: "Varma persiska rätter",
+    description: "Mörstekt ox-tunga tillagad i fyllig persisk kryddbuljong, serveras med färsk Sangak/Barbari bröd, citronklyftor, rödlök och Torshi.",
+    price: "229 kr",
+    image: "/images/zaboon.jpg"
   },
   {
     id: "veg-ghormeh-sabzi",
@@ -174,17 +185,19 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "abgoosht",
     name: "Abgoosht",
     category: "Varma persiska rätter",
-    description: "Traditionell köttsoppa med bönor och tomat, serveras med Sangak bröd och färska örter.",
-    price: "249 kr"
+    description: "Traditionell persisk köttsoppa/gryta med bönor och tomat, serveras med Sangak bröd, Doogh, färska örter och Torshi.",
+    price: "249 kr",
+    image: "/images/abgoosht.jpg"
   },
 
   // Mazeh-tallrik
   {
     id: "mazeh-tallrik",
-    name: "MAZEH-TALLRIK",
+    name: "Maze tallrik",
     category: "Mazeh-tallrik",
     description: "Kombinera 3 valfria Mazeh från deli disken.",
     price: "189 kr",
+    image: "/images/mazeh-tallrik.jpg",
     subItems: [
       { name: "MORGH", description: "Ugns grillad kycklingfilé" },
       { name: "KOO-KOO", description: "Vegetarisk ört omelett med Zereshk (berberis bär), örter och vitlök" },
@@ -238,20 +251,22 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "olovieh-wrap",
-    name: "OLOVIEH WRAP",
+    name: "Olovie Wrap",
     category: "Wraps",
     description: "Kyckling röra med potatis, ägg, majonnäs, ärtor och saltgurka.",
-    price: "119 kr"
+    price: "119 kr",
+    image: "/images/olovieh.jpg"
   },
 
   // Tillbehör & Mazeh
   {
     id: "torshi",
-    name: "TORSHI",
+    name: "Torshi",
     category: "Tillbehör & Mazeh",
     description: "Sima Deli’s egna inlagda grönsaker.",
     price: "59 kr",
-    isVegan: true
+    isVegan: true,
+    image: "/images/torshi.jpg"
   },
   {
     id: "mastokhiar",
@@ -263,11 +278,12 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "mastomoosir",
-    name: "MASTOMOOSIR",
+    name: "Mastmoosir",
     category: "Tillbehör & Mazeh",
-    description: "Yoghurt med vildlök.",
+    description: "Traditionell persisk yoghurt med vildlök och mynta.",
     price: "39 kr",
-    isVegetarian: true
+    isVegetarian: true,
+    image: "/images/mastmoosir.jpg"
   },
   {
     id: "zeytoon-parvardeh",
@@ -279,18 +295,20 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "salad-shirazi",
-    name: "SALAD SHIRAZI",
+    name: "Shirazi-Sallad",
     category: "Tillbehör & Mazeh",
     description: "Tomat, gurka, rödlök, färskpressat citron juice och olivolja.",
     price: "39 kr",
-    isVegan: true
+    isVegan: true,
+    image: "/images/shirazi-salad.jpg"
   },
   {
     id: "olovieh-skal",
-    name: "OLOVIEH",
+    name: "Olovie",
     category: "Tillbehör & Mazeh",
     description: "Kyckling röra, potatis, ägg, majonnäs, ärtor, saltgurka.",
-    price: "Liten 95 kr / Stor 179 kr"
+    price: "Liten 95 kr / Stor 179 kr",
+    image: "/images/olovieh.jpg"
   },
   {
     id: "kashke-bademjan-skal",
@@ -311,11 +329,12 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "koo-koo-skal",
-    name: "KOO-KOO",
+    name: "Koo-koo",
     category: "Tillbehör & Mazeh",
     description: "Vegetarisk ört-omelett med Zereshk (berberis bär) och vitlök.",
     price: "Liten 89 kr / Stor 169 kr",
-    isVegetarian: true
+    isVegetarian: true,
+    image: "/images/koo-koo.jpg"
   },
 
   // Persisk frukost
@@ -375,12 +394,13 @@ export const MENU_ITEMS: MenuItem[] = [
   // Något sött
   {
     id: "sholeh-zard",
-    name: "SHOLEH ZARD",
+    name: "Sholezard",
     category: "Något sött",
-    description: "Rispudding smaksatt med saffran, kanel, riven mandel.",
+    description: "Persisk rispudding smaksatt med saffran, kanel, pistagenötter, mandel och rosenblad.",
     price: "59 kr",
     isVegan: true,
-    note: "Vegan Friendly"
+    note: "Vegan Friendly",
+    image: "/images/sholeh-zard.jpg"
   },
   {
     id: "baklava",
@@ -513,3 +533,122 @@ export const CATERING_INFO = {
   contactEmail: "info@simadeli.com",
   contactPhone: "08-660 36 35"
 };
+
+export const FEATURED_PRODUCTS: MenuItem[] = [
+  {
+    id: "veg-gheymeh",
+    name: "Vegan Ghymeh Bademjan",
+    category: "Varma persiska rätter",
+    description: "Autentisk persisk gryta med gula linser, tomatsås, torkad lime och ugnsrostad aubergine serverad med saffransris.",
+    price: "189 kr",
+    isVegan: true,
+    note: "Populär Vegan",
+    image: "/images/vegan-gheymeh-bademjan.jpg"
+  },
+  {
+    id: "tahchin",
+    name: "Tahchin",
+    category: "Varma persiska rätter",
+    description: "Marinerat kyckling i yoghurt och ägg tillagad som en krispig saffrans-ricecake, toppad med berberisbär.",
+    price: "189 kr",
+    note: "Saffransklassiker",
+    image: "/images/tahchin.jpg"
+  },
+  {
+    id: "zaboon",
+    name: "Zaboon",
+    category: "Varma persiska rätter",
+    description: "Mörstekt ox-tunga tillagad i fyllig persisk kryddbuljong, serveras med Sangak/Barbari bröd, citron, lök och Torshi.",
+    price: "229 kr",
+    note: "Delikatesssoppa",
+    image: "/images/zaboon.jpg"
+  },
+  {
+    id: "mazeh-tallrik",
+    name: "Maze tallrik",
+    category: "Mazeh-tallrik",
+    description: "Generös tallrik kombinerad med 3 valfria Mazeh från deli-disken (t.ex. Koo-koo, Olovie och Kashke-bademjan).",
+    price: "189 kr",
+    note: "Mest Sålda",
+    image: "/images/mazeh-tallrik.jpg"
+  },
+  {
+    id: "olovieh-skal",
+    name: "Olovie",
+    category: "Tillbehör & Mazeh / Wraps",
+    description: "Klassisk persisk kyckling- och potatisröra med ägg, majonnäs, grönärtor och krispig saltgurka.",
+    price: "119 kr",
+    note: "Signaturröra",
+    image: "/images/olovieh.jpg"
+  },
+  {
+    id: "koo-koo-skal",
+    name: "Koo-koo",
+    category: "Tillbehör & Mazeh",
+    description: "Vegetarisk persisk ört-omelett med Zereshk (berberis bär), valnötter och vitlök.",
+    price: "89 kr",
+    isVegetarian: true,
+    note: "Örtfavorit",
+    image: "/images/koo-koo.jpg"
+  },
+  {
+    id: "mastomoosir",
+    name: "Mastmoosir",
+    category: "Tillbehör & Mazeh",
+    description: "Krämig persisk matlagningsyoghurt smaksatt med torkad vildlök och färsk mynta.",
+    price: "39 kr",
+    isVegetarian: true,
+    note: "Krämigt Tillbehör",
+    image: "/images/mastmoosir.jpg"
+  },
+  {
+    id: "salad-shirazi",
+    name: "Shirazi-Sallad",
+    category: "Tillbehör & Mazeh",
+    description: "Fint tärnad gurka, tomat och rödlök slungad med färskpressad citronsaft, jungfruolivolja och torkad mynta.",
+    price: "39 kr",
+    isVegan: true,
+    note: "Fräsch Favorit",
+    image: "/images/shirazi-salad.jpg"
+  },
+  {
+    id: "zereshk-polo",
+    name: "Zereshkpolo",
+    category: "Varma persiska rätter",
+    description: "Marinerad kycklingfilé i fyllig tomatsås, serveras med saffranris, zereshk berberisbär och mandel/pistage.",
+    price: "189 kr",
+    note: "Persisk Klassiker",
+    image: "/images/zereshk-polo.jpg"
+  },
+  {
+    id: "abgoosht",
+    name: "Abgoosht",
+    category: "Varma persiska rätter",
+    description: "Traditionell persisk köttgryta med bönor och tomat, serverad med Sangak bröd, örter, Doogh och Torshi.",
+    price: "249 kr",
+    note: "Hemlagad Tradition",
+    image: "/images/abgoosht.jpg"
+  },
+  {
+    id: "torshi",
+    name: "Torshi",
+    category: "Tillbehör & Mazeh",
+    description: "Sima Delis egna inlagda grönsaker med blomkål, morot, selleri, aubergine och persiska kryddor.",
+    price: "59 kr",
+    isVegan: true,
+    note: "Traditionell Delikatess",
+    image: "/images/torshi.jpg"
+  },
+  {
+    id: "sholeh-zard",
+    name: "Sholezard",
+    category: "Något sött",
+    description: "Persisk rispudding smaksatt med saffran, kanel, pistagenötter, mandel och rosenblad.",
+    price: "59 kr",
+    isVegan: true,
+    note: "Saffransdessert",
+    image: "/images/sholeh-zard.jpg"
+  }
+];
+
+
