@@ -248,7 +248,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
             }}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#C6A04A] hover:bg-[#B08D3B] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
           >
-            <span>View Full Menu</span>
+            <span>Se Hela Menyn</span>
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
