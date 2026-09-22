@@ -25,21 +25,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
           {/* Left: Editorial Headline & Copy */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
 
-            {/* Sima Deli Prominent Brand Logo & Title */}
-            <div className="flex flex-col items-center lg:items-start gap-3">
+            {/* Sima Deli Standalone Brand Logo */}
+            <div className="flex justify-center lg:justify-start">
               <img
                 src="/images/logo.png"
                 alt="Sima Deli Logo"
-                className="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-xs"
+                className="h-24 sm:h-32 md:h-36 w-auto object-contain drop-shadow-sm"
               />
-              <div className="flex flex-col items-center lg:items-start">
-                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1C1917]">
-                  SIMA DELI
-                </h1>
-                <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#C6A04A] mt-1">
-                  Persisk Deli & Restaurang • Stockholm
-                </span>
-              </div>
             </div>
 
             <p className="text-base sm:text-lg text-[#57534E] max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
