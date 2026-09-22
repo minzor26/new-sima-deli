@@ -9,8 +9,8 @@ interface HomePageProps {
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking }) => {
-  // Select signature items that have real photos
-  const featuredDishes = MENU_ITEMS.filter((item) => item.image);
+  // Select signature items for 1 row on homepage (4 dishes)
+  const featuredDishes = MENU_ITEMS.filter((item) => item.image).slice(0, 4);
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-16">
@@ -185,21 +185,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
               key={dish.id}
               className="bg-white rounded-2xl overflow-hidden border border-[#E7E0D8] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
-              <div className="relative aspect-4/3 overflow-hidden image-zoom-container">
+              <div className="relative aspect-4/3 overflow-hidden bg-[#F7F4EE] p-2.5 flex items-center justify-center border-b border-[#CDEBF2]/50">
                 <img
                   src={dish.image}
                   alt={dish.name}
-                  className="w-full h-full object-cover image-zoom-target"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-2xs"
                   loading="lazy"
                 />
 
                 {dish.isVegan && (
-                  <div className="absolute bottom-3 left-3 bg-[#CDEBF2] text-[#1E5F6E] border border-[#B8E2EC] px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider">
+                  <div className="absolute bottom-3 left-3 bg-[#CDEBF2] text-[#1E5F6E] border border-[#B8E2EC] px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider shadow-2xs">
                     Vegan
                   </div>
                 )}
                 {dish.isVegetarian && (
-                  <div className="absolute bottom-3 left-3 bg-[#CDEBF2] text-[#1E5F6E] border border-[#B8E2EC] px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider">
+                  <div className="absolute bottom-3 left-3 bg-[#CDEBF2] text-[#1E5F6E] border border-[#B8E2EC] px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider shadow-2xs">
                     Vegetarisk
                   </div>
                 )}
@@ -246,9 +246,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
               e.preventDefault();
               onNavigate('/meny/');
             }}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#1C1917] hover:bg-[#C6A04A] text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#C6A04A] hover:bg-[#B08D3B] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
           >
-            <span>Utforska hela menyn (inkl. Mazeh & Frukost)</span>
+            <span>View Full Menu</span>
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>

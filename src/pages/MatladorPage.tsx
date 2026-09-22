@@ -53,11 +53,11 @@ export const MatladorPage: React.FC = () => {
             >
               <div>
                 {/* Product Image */}
-                <div className="relative aspect-4/3 overflow-hidden bg-[#FAF7F2]">
+                <div className="relative aspect-4/3 overflow-hidden bg-[#F7F4EE] p-2.5 flex items-center justify-center border-b border-[#cdebf2]/40">
                   <img
                     src={prod.image}
                     alt={prod.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-2xs"
                     loading="lazy"
                   />
                   {prod.isVegan && (

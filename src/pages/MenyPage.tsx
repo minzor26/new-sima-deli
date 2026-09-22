@@ -81,11 +81,11 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
               <div>
                 {/* Image if available */}
                 {item.image && (
-                  <div className="mb-4 rounded-xl overflow-hidden aspect-4/3 sm:aspect-16/10 bg-[#FAF7F2] border-2 border-[#cdebf2]/60">
+                  <div className="mb-4 rounded-xl overflow-hidden aspect-4/3 sm:aspect-16/10 bg-[#F7F4EE] border-2 border-[#cdebf2]/60 p-2 flex items-center justify-center">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-contain drop-shadow-2xs"
                       loading="lazy"
                     />
                   </div>
