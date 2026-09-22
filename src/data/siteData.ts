@@ -106,7 +106,7 @@ export const MENU_ITEMS: MenuItem[] = [
   // Varma persiska rätter
   {
     id: "zereshk-polo",
-    name: "Zereshkpolo ba Morgh",
+    name: "Zereshkpolo",
     category: "Varma persiska rätter",
     description: "Marinerad kycklingfilé i tomatsås, serveras med saffranris, zereshk (berberis bär) och pistagenötter.",
     price: "189 kr",
@@ -193,7 +193,7 @@ export const MENU_ITEMS: MenuItem[] = [
   // Mazeh-tallrik
   {
     id: "mazeh-tallrik",
-    name: "Maze tallrik",
+    name: "Maze Tallrik",
     category: "Mazeh-tallrik",
     description: "Kombinera 3 valfria Mazeh från deli disken.",
     price: "189 kr",
@@ -565,7 +565,7 @@ export const FEATURED_PRODUCTS: MenuItem[] = [
   },
   {
     id: "mazeh-tallrik",
-    name: "Maze tallrik",
+    name: "Maze Tallrik",
     category: "Mazeh-tallrik",
     description: "Generös tallrik kombinerad med 3 valfria Mazeh från deli-disken (t.ex. Koo-koo, Olovie och Kashke-bademjan).",
     price: "189 kr",
