@@ -122,7 +122,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "veg-gheymeh",
-    name: "Vegan Ghymeh Bademjan",
+    name: "Vegan Gheymeh Bademjan",
     category: "Varma persiska rätter",
     description: "Gryta med gula linser, körsbärstomater, torkad lime och ugnsrostade auberginer serveras med saffran ris.",
     price: "189 kr",
@@ -187,6 +187,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "Varma persiska rätter",
     description: "Traditionell persisk köttsoppa/gryta med bönor och tomat, serveras med Sangak bröd, Doogh, färska örter och Torshi.",
     price: "249 kr",
+    note: "Serveras endast på söndagar",
     image: "/images/abgoosht.jpg"
   },
 
@@ -332,7 +333,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: "Koo-koo",
     category: "Tillbehör & Mazeh",
     description: "Vegetarisk ört-omelett med Zereshk (berberis bär) och vitlök.",
-    price: "Liten 89 kr / Stor 169 kr",
+    price: "89 kr",
     isVegetarian: true,
     image: "/images/koo-koo.jpg"
   },
@@ -384,7 +385,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     id: "extra-barbari",
-    name: "Extra Barbari Bröd",
+    name: "Barbari Bröd",
     category: "Persisk frukost",
     description: "Nybakat traditionellt persiskt barbari bröd.",
     price: "20 kr",
@@ -537,7 +538,7 @@ export const CATERING_INFO = {
 export const FEATURED_PRODUCTS: MenuItem[] = [
   {
     id: "veg-gheymeh",
-    name: "Vegan Ghymeh Bademjan",
+    name: "Vegan Gheymeh Bademjan",
     category: "Varma persiska rätter",
     description: "Autentisk persisk gryta med gula linser, tomatsås, torkad lime och ugnsrostad aubergine serverad med saffransris.",
     price: "189 kr",
@@ -626,7 +627,7 @@ export const FEATURED_PRODUCTS: MenuItem[] = [
     category: "Varma persiska rätter",
     description: "Traditionell persisk köttgryta med bönor och tomat, serverad med Sangak bröd, örter, Doogh och Torshi.",
     price: "249 kr",
-    note: "Hemlagad Tradition",
+    note: "Serveras endast på söndagar",
     image: "/images/abgoosht.jpg"
   },
   {
