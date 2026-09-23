@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MENU_CATEGORIES, MENU_ITEMS } from '../data/siteData';
-import { Calendar, ShoppingBag, Leaf, Sparkles } from 'lucide-react';
+import { Calendar, ShoppingBag, Leaf, Sparkles, Camera, Utensils } from 'lucide-react';
 
 interface MenyPageProps {
   onOpenBooking: () => void;
@@ -9,10 +9,22 @@ interface MenyPageProps {
 
 export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState("Alla");
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   const filteredItems = selectedCategory === "Alla"
     ? MENU_ITEMS
     : MENU_ITEMS.filter((item) => item.category === selectedCategory);
+
+  const itemsWithImages = filteredItems.filter(
+    (item) => item.image && !failedImages[item.id]
+  );
+  const itemsWithoutImages = filteredItems.filter(
+    (item) => !item.image || failedImages[item.id]
+  );
+
+  const handleImageError = (itemId: string) => {
+    setFailedImages((prev) => ({ ...prev, [itemId]: true }));
+  };
 
   return (
     <div className="pt-24 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
@@ -70,107 +82,214 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
         </div>
       </div>
 
-      {/* Menu Content Grid */}
-      <div className="space-y-6 sm:space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
-          {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-2xl p-5 sm:p-7 border border-[#cdebf2]/70 shadow-2xs hover:border-[#cdebf2] hover:shadow-md transition-all flex flex-col justify-between"
-            >
-              <div>
-                {/* Image if available */}
-                {item.image && (
-                  <div className="mb-4 rounded-xl overflow-hidden aspect-4/3 sm:aspect-16/10 bg-[#F7F4EE] border-2 border-[#cdebf2]/60 p-2 flex items-center justify-center">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-contain drop-shadow-2xs"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
+      {/* Main Content Area */}
+      <div className="space-y-10 sm:space-y-14">
 
-                {/* Dish title & price (responsive layout) */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1.5 sm:gap-4 mb-2">
-                  <div>
-                    <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]/60 inline-block mb-1">
-                      {item.category}
-                    </span>
-                    <h3 className="font-serif text-lg sm:text-2xl font-bold text-[#1C1917] leading-tight">
-                      {item.name}
-                    </h3>
-                  </div>
-                  {item.price && (
-                    <div className="self-start sm:self-auto shrink-0 font-serif text-sm sm:text-lg font-bold text-[#1e5f6e] bg-[#cdebf2] px-2.5 sm:px-3 py-1 rounded-lg border border-[#b8e2ec] shadow-2xs">
-                      {item.price}
-                    </div>
-                  )}
+        {/* SECTION 1: DISHES WITH IMAGES (DEDICATED VISUAL SHOWCASE FRAME) */}
+        {itemsWithImages.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-[#cdebf2]/80">
+              <div className="flex items-center gap-2">
+                <span className="p-1.5 rounded-lg bg-[#c6a04a]/10 text-[#c6a04a]">
+                  <Camera className="w-4 h-4" />
+                </span>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#c6a04a]">
+                    Utvalda Bildrätter
+                  </span>
+                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1C1917]">
+                    Fotograferade Delikatesser
+                  </h2>
                 </div>
+              </div>
+              <span className="text-xs text-[#78716C] hidden sm:inline-block">
+                Visar {itemsWithImages.length} {itemsWithImages.length === 1 ? 'rätt' : 'rätter'} med bild
+              </span>
+            </div>
 
-                <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed mb-4">
-                  {item.description}
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
+              {itemsWithImages.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-2xl overflow-hidden border border-[#cdebf2]/80 shadow-2xs hover:border-[#c6a04a]/40 hover:shadow-md transition-all flex flex-col justify-between group h-full"
+                >
+                  <div>
+                    {/* Image frame */}
+                    <div className="relative aspect-4/3 sm:aspect-16/10 bg-[#F7F4EE] border-b border-[#cdebf2]/60 overflow-hidden p-2 flex items-center justify-center">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        onError={() => handleImageError(item.id)}
+                        className="w-full h-full object-contain drop-shadow-2xs group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <span className="absolute top-3 left-3 text-[9px] font-bold uppercase tracking-wider text-[#1e5f6e] bg-white/90 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-[#cdebf2]/80 shadow-2xs">
+                        {item.category}
+                      </span>
+                    </div>
 
-                {/* Subitems (e.g. for Mazeh-tallrik, Kaffe, Kalla drycker) */}
-                {item.subItems && item.subItems.length > 0 && (
-                  <div className="mt-4 pt-3 border-t border-[#cdebf2]/50 space-y-2">
-                    {item.subItems.map((sub, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start justify-between text-xs py-1.5 border-b border-[#F7F4EE] last:border-0"
-                      >
-                        <div className="pr-3">
-                          <span className="font-semibold text-[#1C1917]">{sub.name}</span>
-                          {sub.description && (
-                            <span className="text-[#78716C] block text-[11px] mt-0.5">
-                              {sub.description}
-                            </span>
-                          )}
-                        </div>
-                        {sub.price && (
-                          <span className="font-semibold text-[#1e5f6e] bg-[#cdebf2]/50 px-2 py-0.5 rounded-md border border-[#cdebf2] shrink-0 text-[11px]">
-                            {sub.price}
+                    <div className="p-5 space-y-2">
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1917] leading-tight">
+                          {item.name}
+                        </h3>
+                        {item.price && (
+                          <span className="font-serif text-sm sm:text-base font-bold text-[#1e5f6e] bg-[#cdebf2]/60 px-2.5 py-1 rounded-lg border border-[#b8e2ec] shrink-0">
+                            {item.price}
                           </span>
                         )}
                       </div>
-                    ))}
+
+                      <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+                        {item.description}
+                      </p>
+
+                      {/* Subitems */}
+                      {item.subItems && item.subItems.length > 0 && (
+                        <div className="mt-3 pt-2.5 border-t border-[#cdebf2]/50 space-y-1.5">
+                          {item.subItems.map((sub, idx) => (
+                            <div key={idx} className="flex items-start justify-between text-xs py-1 border-b border-[#F7F4EE] last:border-0">
+                              <div>
+                                <span className="font-semibold text-[#1C1917]">{sub.name}</span>
+                                {sub.description && <span className="text-[#78716C] block text-[11px]">{sub.description}</span>}
+                              </div>
+                              {sub.price && <span className="font-semibold text-[#1e5f6e] bg-[#cdebf2]/50 px-2 py-0.5 rounded-md border border-[#cdebf2] shrink-0 text-[11px]">{sub.price}</span>}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
-              </div>
 
-              {/* Photo & dietary tags */}
-              <div className="mt-4 pt-3 border-t border-[#cdebf2]/50 flex items-center justify-between gap-2 flex-wrap">
-                <div className="flex flex-wrap gap-1.5">
-                  {item.isVegan && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
-                      <Leaf className="w-3 h-3" />
-                      Vegan
+                  {/* Dietary tags */}
+                  <div className="px-5 pb-5 pt-0 flex items-center justify-between gap-2 flex-wrap text-[10px]">
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.isVegan && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                          <Leaf className="w-3 h-3" />
+                          Vegan
+                        </span>
+                      )}
+                      {item.isVegetarian && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                          <Leaf className="w-3 h-3" />
+                          Vegetarisk
+                        </span>
+                      )}
+                      {item.note && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2.5 py-0.5 rounded-full border border-[#cdebf2]">
+                          <Sparkles className="w-3 h-3 text-[#c6a04a]" />
+                          {item.note}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-[#c6a04a] font-semibold">
+                      Signaturrätt
                     </span>
-                  )}
-                  {item.isVegetarian && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
-                      <Leaf className="w-3 h-3" />
-                      Vegetarisk
-                    </span>
-                  )}
-                  {item.note && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2.5 py-0.5 rounded-full border border-[#cdebf2]">
-                      <Sparkles className="w-3 h-3 text-[#c6a04a]" />
-                      {item.note}
-                    </span>
-                  )}
+                  </div>
                 </div>
-
-                {item.image && (
-                  <span className="text-[10px] sm:text-[11px] text-[#c6a04a] font-semibold">
-                    Populär signaturrätt
-                  </span>
-                )}
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </section>
+        )}
+
+        {/* SECTION 2: DISHES WITHOUT IMAGES (CREATIVE SCANDINAVIAN TYPOGRAPHY LAYOUT) */}
+        {itemsWithoutImages.length > 0 && (
+          <section className="space-y-4">
+            {itemsWithImages.length > 0 && (
+              <div className="flex items-center gap-2 pb-2 border-b border-[#cdebf2]/80 pt-4">
+                <span className="p-1.5 rounded-lg bg-[#1e5f6e]/10 text-[#1e5f6e]">
+                  <Utensils className="w-4 h-4" />
+                </span>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#1e5f6e]">
+                    Meny-klassiker
+                  </span>
+                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1C1917]">
+                    Husets Övriga Delikatesser
+                  </h2>
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-stretch">
+              {itemsWithoutImages.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-2xl p-5 sm:p-6 border border-[#cdebf2]/80 shadow-2xs hover:border-[#cdebf2] hover:shadow-sm transition-all flex flex-col justify-between relative overflow-hidden h-full"
+                >
+                  {/* Decorative top accent line */}
+                  <div className="w-10 h-1 bg-[#c6a04a]/70 rounded-full mb-3" />
+
+                  <div>
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 sm:gap-4 mb-2">
+                      <div>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]/60 inline-block mb-1">
+                          {item.category}
+                        </span>
+                        <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1917] leading-tight">
+                          {item.name}
+                        </h3>
+                      </div>
+                      {item.price && (
+                        <div className="self-start sm:self-auto shrink-0 font-serif text-sm sm:text-base font-bold text-[#1e5f6e] bg-[#FAF7F2] px-2.5 py-1 rounded-lg border border-[#cdebf2]">
+                          {item.price}
+                        </div>
+                      )}
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed mb-3">
+                      {item.description}
+                    </p>
+
+                    {/* Subitems */}
+                    {item.subItems && item.subItems.length > 0 && (
+                      <div className="mt-3 pt-2.5 border-t border-[#cdebf2]/50 space-y-1.5">
+                        {item.subItems.map((sub, idx) => (
+                          <div key={idx} className="flex items-start justify-between text-xs py-1 border-b border-[#F7F4EE] last:border-0">
+                            <div>
+                              <span className="font-semibold text-[#1C1917]">{sub.name}</span>
+                              {sub.description && <span className="text-[#78716C] block text-[11px]">{sub.description}</span>}
+                            </div>
+                            {sub.price && <span className="font-semibold text-[#1e5f6e] bg-[#cdebf2]/50 px-2 py-0.5 rounded-md border border-[#cdebf2] shrink-0 text-[11px]">{sub.price}</span>}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Dietary tags */}
+                  <div className="mt-4 pt-3 border-t border-[#cdebf2]/50 flex items-center justify-between gap-2 flex-wrap text-[10px]">
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.isVegan && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                          <Leaf className="w-3 h-3" />
+                          Vegan
+                        </span>
+                      )}
+                      {item.isVegetarian && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                          <Leaf className="w-3 h-3" />
+                          Vegetarisk
+                        </span>
+                      )}
+                      {item.note && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2.5 py-0.5 rounded-full border border-[#cdebf2]">
+                          <Sparkles className="w-3 h-3 text-[#c6a04a]" />
+                          {item.note}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-[#78716C] font-medium italic">
+                      Traditionellt recept
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
       </div>
 
       {/* Footnote on dietary & hospitality */}
