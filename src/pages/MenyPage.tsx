@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { MENU_CATEGORIES, MENU_ITEMS } from '../data/siteData';
-import { Calendar, ShoppingBag, Leaf, Sparkles, Camera, Utensils } from 'lucide-react';
+import { MENU_CATEGORIES, MENU_ITEMS, type MenuItem } from '../data/siteData';
+import { Calendar, ShoppingBag, Leaf, Sparkles, Camera, Utensils, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface MenyPageProps {
   onOpenBooking: () => void;
@@ -10,16 +10,41 @@ interface MenyPageProps {
 export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const [showMoreOpen, setShowMoreOpen] = useState(false);
+
+  // Check if a dish has a valid image belonging to Sima Deli data
+  const hasValidImage = (item: MenuItem) => {
+    return Boolean(item.image && item.image.trim() !== '' && !failedImages[item.id]);
+  };
+
+  // Dynamically group categories based ONLY on existing Sima Deli dish images
+  const mainCategories: string[] = [];
+  const showMoreCategories: string[] = [];
+
+  MENU_CATEGORIES.forEach((cat) => {
+    if (cat === "Alla") {
+      mainCategories.push(cat);
+      return;
+    }
+    const catDishes = MENU_ITEMS.filter((item) => item.category === cat);
+    const hasImageDish = catDishes.some((item) => hasValidImage(item));
+
+    if (hasImageDish) {
+      mainCategories.push(cat);
+    } else {
+      showMoreCategories.push(cat);
+    }
+  });
 
   const filteredItems = selectedCategory === "Alla"
     ? MENU_ITEMS
     : MENU_ITEMS.filter((item) => item.category === selectedCategory);
 
   const itemsWithImages = filteredItems.filter(
-    (item) => item.image && !failedImages[item.id]
+    (item) => hasValidImage(item)
   );
   const itemsWithoutImages = filteredItems.filter(
-    (item) => !item.image || failedImages[item.id]
+    (item) => !hasValidImage(item)
   );
 
   const handleImageError = (itemId: string) => {
@@ -63,23 +88,64 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
         </div>
       </div>
 
-      {/* Sticky Category Pills Navigation on Mobile */}
+      {/* Sticky Category Pills Navigation */}
       <div className="sticky top-[56px] sm:top-[68px] z-30 bg-[#FAF7F2]/95 backdrop-blur-md py-3 -mx-4 px-4 sm:mx-0 sm:px-0 border-y sm:border-y-0 border-[#cdebf2]/80 transition-all">
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto gap-2 pb-1 no-scrollbar scroll-smooth">
-          {MENU_CATEGORIES.map((cat) => (
+        <div className="flex flex-wrap items-center justify-start sm:justify-center gap-2 pb-1 no-scrollbar scroll-smooth">
+          {/* Main categories (categories that have at least ONE dish with an existing Sima Deli image) */}
+          {mainCategories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
+              onClick={() => {
+                setSelectedCategory(cat);
+                setShowMoreOpen(false);
+              }}
+              className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 flex items-center gap-1.5 ${
                 selectedCategory === cat
                   ? 'bg-[#c6a04a] text-white shadow-xs'
                   : 'bg-white text-[#1e5f6e] hover:bg-[#cdebf2]/50 border border-[#cdebf2]'
               }`}
             >
-              {cat}
+              <span>{cat}</span>
             </button>
           ))}
+
+          {/* Show More Categories Trigger */}
+          {showMoreCategories.length > 0 && (
+            <button
+              onClick={() => setShowMoreOpen(!showMoreOpen)}
+              className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                showMoreCategories.includes(selectedCategory) || showMoreOpen
+                  ? 'bg-[#1e5f6e] text-white shadow-xs'
+                  : 'bg-white text-[#1e5f6e] hover:bg-[#cdebf2]/50 border border-[#cdebf2]'
+              }`}
+            >
+              <span>Visa fler</span>
+              <span className="text-[10px] opacity-80">({showMoreCategories.length})</span>
+              {showMoreOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          )}
         </div>
+
+        {/* Show More Expanded Category List */}
+        {showMoreOpen && showMoreCategories.length > 0 && (
+          <div className="mt-2.5 pt-2.5 border-t border-[#cdebf2]/60 flex flex-wrap items-center justify-start sm:justify-center gap-2">
+            {showMoreCategories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  setSelectedCategory(cat);
+                }}
+                className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
+                  selectedCategory === cat
+                    ? 'bg-[#c6a04a] text-white shadow-xs'
+                    : 'bg-white/90 text-[#57534E] hover:bg-white hover:text-[#1e5f6e] border border-[#cdebf2]/80'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Main Content Area */}
