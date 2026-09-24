@@ -11,6 +11,7 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const [showMoreOpen, setShowMoreOpen] = useState(false);
+  const [showNonImageDishes, setShowNonImageDishes] = useState(false);
 
   // Check if a dish has a valid image belonging to Sima Deli data
   const hasValidImage = (item: MenuItem) => {
@@ -49,6 +50,12 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
 
   const handleImageError = (itemId: string) => {
     setFailedImages((prev) => ({ ...prev, [itemId]: true }));
+  };
+
+  const handleCategorySelect = (cat: string) => {
+    setSelectedCategory(cat);
+    setShowMoreOpen(false);
+    setShowNonImageDishes(false);
   };
 
   return (
@@ -95,10 +102,7 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
           {mainCategories.map((cat) => (
             <button
               key={cat}
-              onClick={() => {
-                setSelectedCategory(cat);
-                setShowMoreOpen(false);
-              }}
+              onClick={() => handleCategorySelect(cat)}
               className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 flex items-center gap-1.5 ${
                 selectedCategory === cat
                   ? 'bg-[#c6a04a] text-white shadow-xs'
@@ -134,6 +138,7 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
                 key={cat}
                 onClick={() => {
                   setSelectedCategory(cat);
+                  setShowNonImageDishes(false);
                 }}
                 className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 ${
                   selectedCategory === cat
@@ -151,7 +156,7 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
       {/* Main Content Area */}
       <div className="space-y-10 sm:space-y-14">
 
-        {/* SECTION 1: DISHES WITH IMAGES (DEDICATED VISUAL SHOWCASE FRAME) */}
+        {/* SECTION 1: DISHES WITH IMAGES (4-COLUMN VISUAL SHOWCASE GRID) */}
         {itemsWithImages.length > 0 && (
           <section className="space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-[#cdebf2]/80">
@@ -173,7 +178,8 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
+            {/* 4 Column Layout on Desktop (xl:grid-cols-4) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 items-stretch">
               {itemsWithImages.map((item) => (
                 <div
                   key={item.id}
@@ -181,7 +187,7 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
                 >
                   <div>
                     {/* Image frame */}
-                    <div className="relative aspect-4/3 sm:aspect-16/10 bg-[#F7F4EE] border-b border-[#cdebf2]/60 overflow-hidden p-2 flex items-center justify-center">
+                    <div className="relative aspect-4/3 bg-[#F7F4EE] border-b border-[#cdebf2]/60 overflow-hidden p-2 flex items-center justify-center">
                       <img
                         src={item.image}
                         alt={item.name}
@@ -189,24 +195,24 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
                         className="w-full h-full object-contain drop-shadow-2xs group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                       />
-                      <span className="absolute top-3 left-3 text-[9px] font-bold uppercase tracking-wider text-[#1e5f6e] bg-white/90 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-[#cdebf2]/80 shadow-2xs">
+                      <span className="absolute top-2.5 left-2.5 text-[9px] font-bold uppercase tracking-wider text-[#1e5f6e] bg-white/90 backdrop-blur-xs px-2 py-0.5 rounded-full border border-[#cdebf2]/80 shadow-2xs">
                         {item.category}
                       </span>
                     </div>
 
-                    <div className="p-5 space-y-2">
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1917] leading-tight">
+                    <div className="p-4 sm:p-5 space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="font-serif text-base sm:text-lg font-bold text-[#1C1917] leading-tight">
                           {item.name}
                         </h3>
                         {item.price && (
-                          <span className="font-serif text-sm sm:text-base font-bold text-[#1e5f6e] bg-[#cdebf2]/60 px-2.5 py-1 rounded-lg border border-[#b8e2ec] shrink-0">
+                          <span className="font-serif text-xs sm:text-sm font-bold text-[#1e5f6e] bg-[#cdebf2]/60 px-2 py-0.5 rounded-md border border-[#b8e2ec] shrink-0">
                             {item.price}
                           </span>
                         )}
                       </div>
 
-                      <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+                      <p className="text-xs text-[#57534E] leading-relaxed">
                         {item.description}
                       </p>
 
@@ -228,22 +234,22 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
                   </div>
 
                   {/* Dietary tags */}
-                  <div className="px-5 pb-5 pt-0 flex items-center justify-between gap-2 flex-wrap text-[10px]">
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 flex items-center justify-between gap-2 flex-wrap text-[10px]">
                     <div className="flex flex-wrap gap-1.5">
                       {item.isVegan && (
-                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2 py-0.5 rounded-full border border-[#b8e2ec]">
                           <Leaf className="w-3 h-3" />
                           Vegan
                         </span>
                       )}
                       {item.isVegetarian && (
-                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2 py-0.5 rounded-full border border-[#b8e2ec]">
                           <Leaf className="w-3 h-3" />
                           Vegetarisk
                         </span>
                       )}
                       {item.note && (
-                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2.5 py-0.5 rounded-full border border-[#cdebf2]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]">
                           <Sparkles className="w-3 h-3 text-[#c6a04a]" />
                           {item.note}
                         </span>
@@ -256,12 +262,30 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
                 </div>
               ))}
             </div>
+
+            {/* SHOW MORE BUTTON FOR NON-IMAGE DISHES IN THIS CATEGORY */}
+            {itemsWithoutImages.length > 0 && (
+              <div className="flex justify-center pt-4 pb-2">
+                <button
+                  onClick={() => setShowNonImageDishes(!showNonImageDishes)}
+                  className="px-6 py-2.5 rounded-full bg-white hover:bg-[#cdebf2]/40 border border-[#cdebf2] text-[#1e5f6e] text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-2xs hover:shadow-xs"
+                >
+                  <Utensils className="w-4 h-4 text-[#c6a04a]" />
+                  <span>
+                    {showNonImageDishes
+                      ? "Dölj övriga rätter utan bild"
+                      : `Visa övriga rätter utan bild (${itemsWithoutImages.length})`}
+                  </span>
+                  {showNonImageDishes ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                </button>
+              </div>
+            )}
           </section>
         )}
 
-        {/* SECTION 2: DISHES WITHOUT IMAGES (CREATIVE SCANDINAVIAN TYPOGRAPHY LAYOUT) */}
-        {itemsWithoutImages.length > 0 && (
-          <section className="space-y-4">
+        {/* SECTION 2: DISHES WITHOUT IMAGES (SHOWN WHEN EXPANDED OR WHEN NO PHOTO DISHES EXIST) */}
+        {itemsWithoutImages.length > 0 && (showNonImageDishes || itemsWithImages.length === 0) && (
+          <section className="space-y-4 animate-fadeIn">
             {itemsWithImages.length > 0 && (
               <div className="flex items-center gap-2 pb-2 border-b border-[#cdebf2]/80 pt-4">
                 <span className="p-1.5 rounded-lg bg-[#1e5f6e]/10 text-[#1e5f6e]">
@@ -278,33 +302,34 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
               </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-stretch">
+            {/* 4 Column Layout for Non-Image Dishes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch">
               {itemsWithoutImages.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white rounded-2xl p-5 sm:p-6 border border-[#cdebf2]/80 shadow-2xs hover:border-[#cdebf2] hover:shadow-sm transition-all flex flex-col justify-between relative overflow-hidden h-full"
+                  className="bg-white rounded-2xl p-4 sm:p-5 border border-[#cdebf2]/80 shadow-2xs hover:border-[#cdebf2] hover:shadow-sm transition-all flex flex-col justify-between relative overflow-hidden h-full"
                 >
                   {/* Decorative top accent line */}
                   <div className="w-10 h-1 bg-[#c6a04a]/70 rounded-full mb-3" />
 
                   <div>
-                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 sm:gap-4 mb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 sm:gap-3 mb-2">
                       <div>
                         <span className="text-[9px] font-bold uppercase tracking-wider text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]/60 inline-block mb-1">
                           {item.category}
                         </span>
-                        <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1917] leading-tight">
+                        <h3 className="font-serif text-base sm:text-lg font-bold text-[#1C1917] leading-tight">
                           {item.name}
                         </h3>
                       </div>
                       {item.price && (
-                        <div className="self-start sm:self-auto shrink-0 font-serif text-sm sm:text-base font-bold text-[#1e5f6e] bg-[#FAF7F2] px-2.5 py-1 rounded-lg border border-[#cdebf2]">
+                        <div className="self-start sm:self-auto shrink-0 font-serif text-xs sm:text-sm font-bold text-[#1e5f6e] bg-[#FAF7F2] px-2 py-0.5 rounded-md border border-[#cdebf2]">
                           {item.price}
                         </div>
                       )}
                     </div>
 
-                    <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed mb-3">
+                    <p className="text-xs text-[#57534E] leading-relaxed mb-3">
                       {item.description}
                     </p>
 
@@ -328,19 +353,19 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
                   <div className="mt-4 pt-3 border-t border-[#cdebf2]/50 flex items-center justify-between gap-2 flex-wrap text-[10px]">
                     <div className="flex flex-wrap gap-1.5">
                       {item.isVegan && (
-                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2 py-0.5 rounded-full border border-[#b8e2ec]">
                           <Leaf className="w-3 h-3" />
                           Vegan
                         </span>
                       )}
                       {item.isVegetarian && (
-                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2.5 py-0.5 rounded-full border border-[#b8e2ec]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2] px-2 py-0.5 rounded-full border border-[#b8e2ec]">
                           <Leaf className="w-3 h-3" />
                           Vegetarisk
                         </span>
                       )}
                       {item.note && (
-                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2.5 py-0.5 rounded-full border border-[#cdebf2]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]">
                           <Sparkles className="w-3 h-3 text-[#c6a04a]" />
                           {item.note}
                         </span>
