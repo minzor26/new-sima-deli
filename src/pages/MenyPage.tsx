@@ -52,10 +52,10 @@ const MENU_DESIGNS: MenuDesignOption[] = [
   },
   {
     id: 'layout-a',
-    label: 'A: Featured Image + Menu (Left)',
+    label: 'A: Signature Dark Luxury',
     badge: 'Bild 2A',
-    refImage: 'Option A (Left Image)',
-    description: 'En stor matbild till vänster med signaturtext. Till höger: kategoriflikar, Starters-rubrik och maträtter med bildminiatyr.',
+    refImage: 'SIGNATURE Editorial (Ny)',
+    description: 'Exklusiv mörk editorial med SIGNATURE-rubrik, panoramabild, "Explore Menu"-gallerikort och restaurangatmosfär.',
     icon: ImageIcon
   },
   {

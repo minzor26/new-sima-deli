@@ -1,262 +1,286 @@
 import React, { useState } from 'react';
-import { MENU_ITEMS, type MenuItem } from '../../data/siteData';
+import { Menu, Sparkles } from 'lucide-react';
+import { MENU_ITEMS } from '../../data/siteData';
 
 interface MenuLayoutProps {
   onOpenBooking?: () => void;
   onNavigate?: (path: string) => void;
 }
 
-// Categories exactly matching Image 2 Option A
-const CATEGORIES = [
-  { id: 'all', label: 'All' },
-  { id: 'starters', label: 'Starters' },
-  { id: 'main', label: 'Main Course' },
-  { id: 'rice', label: 'Rice' },
-  { id: 'grills', label: 'Grills' },
-  { id: 'desserts', label: 'Desserts' },
-  { id: 'beverages', label: 'Beverages' }
-];
+export const MenuLayoutA: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNavigate }) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('main');
 
-export const MenuLayoutA: React.FC<MenuLayoutProps> = () => {
-  const [selectedCat, setSelectedCat] = useState('starters');
-
-  // Filter items based on selected category tab
-  const getDishesForCategory = (): { title: string; items: MenuItem[] } => {
-    if (selectedCat === 'starters' || selectedCat === 'all') {
-      return {
-        title: 'Starters',
-        items: [
-          {
-            id: 'zereshk-polo',
-            name: 'Zereshkpolo',
-            category: 'Varma persiska rätter',
-            description: 'Marinated chicken fillet in tomato sauce, served with saffron rice, zereshk (barberries) and pistachios.',
-            price: '189 kr',
-            image: '/images/zereshk-polo.jpg'
-          },
-          {
-            id: 'gheymeh',
-            name: 'Gheymeh',
-            category: 'Varma persiska rätter',
-            description: 'Lamb stew with yellow lentils, cherry tomatoes and dried lime, served with saffron rice.',
-            price: '189 kr'
-          },
-          {
-            id: 'veg-gheymeh',
-            name: 'Vegan Gheymeh Bademjan',
-            category: 'Varma persiska rätter',
-            description: 'Stew with yellow lentils, cherry tomatoes, dried lime and roasted eggplant, served with saffron rice.',
-            price: '189 kr',
-            isVegan: true,
-            note: 'Vegan Friendly'
-          },
-          {
-            id: 'kashke-bademjan',
-            name: 'Kashke Bademjan',
-            category: 'Tillbehör & Mazeh',
-            description: 'Roasted eggplant dip with garlic, mint, walnuts and caramelized onions.',
-            price: '95 kr',
-            isVegetarian: true
-          }
-        ]
-      };
-    } else if (selectedCat === 'main') {
-      return {
-        title: 'Main Course',
-        items: [
-          {
-            id: 'ghormeh-sabzi',
-            name: 'Ghormeh-Sabzi',
-            category: 'Varma persiska rätter',
-            description: 'Herb stew with kidney beans and dried lime, served with saffron rice.',
-            price: '189 kr',
-            image: '/images/ghormeh-sabzi.jpg'
-          },
-          {
-            id: 'baghali-polo',
-            name: 'Baghali-Polo Mahiche',
-            category: 'Varma persiska rätter',
-            description: 'Slow-cooked lamb shank with dill and broad bean rice.',
-            price: '259 kr',
-            image: '/images/baghali-polo.jpg'
-          },
-          {
-            id: 'fesenjan',
-            name: 'Fesenjan',
-            category: 'Varma persiska rätter',
-            description: 'Rich pomegranate and walnut stew, served with saffron rice.',
-            price: '249 kr'
-          },
-          {
-            id: 'tahchin',
-            name: 'Tahchin',
-            category: 'Varma persiska rätter',
-            description: 'Saffron rice cake with chicken, yoghurt and aromatic spices.',
-            price: '189 kr',
-            image: '/images/tahchin.jpg'
-          }
-        ]
-      };
-    } else if (selectedCat === 'rice') {
-      return {
-        title: 'Rice Specialities',
-        items: [
-          {
-            id: 'saffron-rice',
-            name: 'Saffransris med Tahdig',
-            category: 'Tillbehör & Mazeh',
-            description: 'Fragrant basmati rice infused with Persian saffron and crispy bottom crust.',
-            price: '55 kr',
-            isVegan: true
-          },
-          {
-            id: 'baghali-rice',
-            name: 'Baghali Polo Ris',
-            category: 'Tillbehör & Mazeh',
-            description: 'Basmati rice steamed with baby broad beans and fresh aromatic dill.',
-            price: '65 kr',
-            isVegan: true
-          }
-        ]
-      };
-    } else if (selectedCat === 'desserts') {
-      return {
-        title: 'Desserts',
-        items: MENU_ITEMS.filter((i) => i.category === 'Något sött')
-      };
-    } else if (selectedCat === 'beverages') {
-      return {
-        title: 'Beverages',
-        items: MENU_ITEMS.filter((i) => i.category === 'Drycker')
-      };
+  const categories = [
+    {
+      id: 'appetizers',
+      label: 'Appetizers & Mazeh',
+      sublabel: 'Förrätter & Smårätter',
+      image: '/images/mazeh-tallrik.jpg',
+      dishes: MENU_ITEMS.filter((i) => i.category === 'Tillbehör & Mazeh' || i.category === 'Sallader').slice(0, 4)
+    },
+    {
+      id: 'main',
+      label: 'Main Courses',
+      sublabel: 'Grytor & Varmrätter',
+      image: '/images/ghormeh-sabzi.jpg',
+      dishes: MENU_ITEMS.filter((i) => i.category === 'Varma persiska rätter').slice(0, 4)
+    },
+    {
+      id: 'desserts',
+      label: 'Desserts',
+      sublabel: 'Sött & Saffran',
+      image: '/images/sholeh-zard.jpg',
+      dishes: MENU_ITEMS.filter((i) => i.category === 'Något sött')
+    },
+    {
+      id: 'wine',
+      label: 'Wine & Tea',
+      sublabel: 'Viner & Persiskt Te',
+      image: '/images/shirazi-salad.jpg',
+      dishes: MENU_ITEMS.filter((i) => i.category === 'Drycker')
     }
-    return {
-      title: 'Menu',
-      items: MENU_ITEMS.slice(0, 5)
-    };
-  };
+  ];
 
-  const { title, items } = getDishesForCategory();
+  const activeCategoryData = categories.find((c) => c.id === selectedCategory) || categories[1];
 
   return (
-    <div className="bg-[#FAF7F2] p-4 sm:p-6 lg:p-8 rounded-3xl border border-[#E8DFD3]/80 shadow-sm max-w-6xl mx-auto animate-fadeIn">
-      {/* Container Card */}
-      <div className="bg-[#FCFAF7] rounded-2xl border border-[#ECE5DC] p-5 sm:p-8 lg:p-10 shadow-xs">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
-          {/* LEFT COLUMN: Featured Image Card with Overlay Text (Exact Reference 2A) */}
-          <div className="lg:col-span-5 w-full">
-            <div className="relative rounded-2xl overflow-hidden shadow-md bg-stone-900 aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] w-full">
-              <img
-                src="/images/zereshk-polo.jpg"
-                alt="Signature Persian Flavours"
-                className="w-full h-full object-cover object-center brightness-95"
-              />
-              
-              {/* Subtle Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+    <div className="bg-[#121316] text-[#EAE6DF] rounded-3xl p-6 sm:p-10 lg:p-14 border border-stone-800 shadow-2xl max-w-7xl mx-auto space-y-16 sm:space-y-24 font-serif animate-fadeIn">
+      
+      {/* ========================================================================= */}
+      {/* 1. TOP HEADER: HAMBURGER, SIGNATURE BRAND & RESERVATION BUTTON            */}
+      {/* ========================================================================= */}
+      <div className="space-y-8">
+        {/* Top Navbar Row */}
+        <div className="flex items-center justify-between border-b border-stone-800 pb-4">
+          <button
+            onClick={() => onNavigate && onNavigate('/meny/')}
+            className="text-stone-400 hover:text-white transition-colors cursor-pointer"
+            aria-label="Menu navigation"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
 
-              {/* Bottom Overlay Title & Subtitle */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 text-white space-y-2">
-                <h3 className="font-serif text-2xl sm:text-3xl font-medium tracking-tight leading-snug text-white">
-                  Signature<br />Persian Flavours
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-200 font-light leading-relaxed">
-                  Traditional recipes, fresh ingredients and authentic taste in every dish.
-                </p>
-              </div>
-            </div>
+          <span className="text-xs uppercase tracking-[0.3em] font-sans text-stone-300 font-semibold">
+            SIGNATURE
+          </span>
+
+          <button
+            onClick={onOpenBooking}
+            className="px-5 py-2 bg-white hover:bg-stone-200 text-black font-sans text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-sm"
+          >
+            RESERVATION
+          </button>
+        </div>
+
+        {/* Big Masthead Title Split: "SIGNATURE" on Left, Subtitle on Right */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end pt-2">
+          <div className="md:col-span-7">
+            <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white font-normal uppercase leading-none">
+              SIGNATURE
+            </h2>
           </div>
 
-          {/* RIGHT COLUMN: Category Pills + Title + Dishes List with Thumbnail */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* Category Pills Navigation */}
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1">
-              {CATEGORIES.map((cat) => {
-                const isActive = selectedCat === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCat(cat.id)}
-                    className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                      isActive
-                        ? 'bg-[#1C1917] text-white shadow-xs'
-                        : 'bg-white text-[#57534E] hover:text-[#1C1917] hover:bg-[#F3EDE5] border border-[#E8DFD3]'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Section Header with Horizontal Rule */}
-            <div className="flex items-center gap-3 pt-2">
-              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1C1917] tracking-tight">
-                {title}
-              </h3>
-              <div className="h-[1px] flex-1 bg-[#D6CCC2]/70 max-w-xs" />
-            </div>
-
-            {/* Dish Rows */}
-            <div className="space-y-5 pt-1">
-              {items.map((dish) => (
-                <div key={dish.id} className="group">
-                  <div className="flex items-start justify-between gap-4">
-                    
-                    {/* Left details */}
-                    <div className="flex-1 space-y-1">
-                      <div className="flex items-baseline justify-between gap-4">
-                        <h4 className="font-serif text-base sm:text-lg font-bold text-[#1C1917]">
-                          {dish.name}
-                        </h4>
-                        <span className="font-serif text-sm sm:text-base font-medium text-[#947128] tabular-nums shrink-0">
-                          {dish.price}
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-[#57534E] font-light leading-relaxed pr-2">
-                        {dish.description}
-                      </p>
-
-                      {/* Dietary Badges */}
-                      {(dish.isVegan || dish.note) && (
-                        <div className="flex items-center gap-1.5 pt-1.5">
-                          {dish.isVegan && (
-                            <span className="inline-flex items-center gap-1 text-[10px] text-[#1e5f6e] bg-[#E2F2F5] px-2 py-0.5 rounded-md border border-[#cdebf2]">
-                              🌱 Vegan
-                            </span>
-                          )}
-                          {dish.note && (
-                            <span className="inline-flex items-center gap-1 text-[10px] text-[#856525] bg-[#FAF3E3] px-2 py-0.5 rounded-md border border-[#F2E5C9]">
-                              ✨ {dish.note}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Right Thumbnail (Only if image exists, exactly matching Reference 2A) */}
-                    {dish.image && (
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0 border border-[#E2DAD0] shadow-xs">
-                        <img
-                          src={dish.image}
-                          alt={dish.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-
-                  </div>
-                </div>
-              ))}
-            </div>
-
+          <div className="md:col-span-5 pb-2">
+            <p className="font-sans text-xs sm:text-sm text-stone-400 font-light leading-relaxed max-w-sm">
+              We are serving a wide variety of authentic Persian stews, saffron rice and exotic delicacies hand-crafted with heritage recipes.
+            </p>
           </div>
+        </div>
 
+        {/* 2. PANORAMIC WIDE FOOD SPREAD BANNER (Exact Reference Layout) */}
+        <div className="relative rounded-2xl overflow-hidden aspect-[21/9] sm:aspect-[24/9] bg-stone-900 border border-stone-800/80 shadow-xl group">
+          <img
+            src="/images/zereshk-polo.jpg"
+            alt="Signature Persian Culinary Spread"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-90"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* 3. SHOWCASE SECTION: "Discover new flavours..." & PHOTO CARDS             */}
+      {/* ========================================================================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-4">
+        
+        {/* Left: 2 Moody Portrait Cards */}
+        <div className="lg:col-span-6 grid grid-cols-2 gap-4">
+          <div className="rounded-2xl overflow-hidden aspect-[3/4] bg-stone-900 border border-stone-800 shadow-md group">
+            <img
+              src="/images/baghali-polo.jpg"
+              alt="Baghali-Polo Mahiche"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <div className="rounded-2xl overflow-hidden aspect-[3/4] bg-stone-900 border border-stone-800 shadow-md group">
+            <img
+              src="/images/ghormeh-sabzi.jpg"
+              alt="Ghormeh-Sabzi Stew"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+
+        {/* Center / Right: Editorial Story & Learn More Button */}
+        <div className="lg:col-span-6 space-y-6">
+          <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-white leading-tight">
+            Discover new flavours <br />
+            and enjoy our authentic <br />
+            Persian dishes!
+          </h3>
+
+          <div className="space-y-4 font-sans text-xs sm:text-sm text-stone-400 font-light leading-relaxed max-w-md">
+            <p>
+              Our approach is based on a concept of slow food that is defined by three interconnected principles: good, clean and fair.
+            </p>
+            <p>
+              Using the freshest herbs and Khorasan saffron as the basis, we are implementing traditional slow-simmering techniques that do not change the true taste of the products.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <button
+              onClick={() => onNavigate && onNavigate('/om-oss/')}
+              className="px-6 py-2.5 border border-stone-500 hover:border-white text-white font-sans text-xs font-semibold uppercase tracking-widest transition-colors cursor-pointer"
+            >
+              LEARN MORE
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 4. "EXPLORE MENU" 4-COLUMN GALLERY CARDS (Exact Reference Layout)         */}
+      {/* ========================================================================= */}
+      <div className="space-y-10 pt-8 border-t border-stone-800">
+        
+        {/* Section Heading */}
+        <div className="text-center space-y-1">
+          <h3 className="font-serif text-3xl sm:text-4xl uppercase tracking-widest text-white font-normal">
+            EXPLORE MENU
+          </h3>
+          <p className="font-sans text-xs text-stone-500 font-light">
+            Klicka på en kategori för att utforska rätter och priser
+          </p>
+        </div>
+
+        {/* 4 Tall Vertical Category Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          {categories.map((cat) => {
+            const isSelected = selectedCategory === cat.id;
+
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className="flex flex-col text-left space-y-3 group cursor-pointer"
+              >
+                {/* Tall Portrait Image Card */}
+                <div
+                  className={`w-full aspect-[3/4] rounded-xl overflow-hidden bg-stone-900 border transition-all duration-300 relative shadow-md ${
+                    isSelected
+                      ? 'border-[#c6a04a] ring-2 ring-[#c6a04a]/60 shadow-lg scale-[1.02]'
+                      : 'border-stone-800 group-hover:border-stone-600'
+                  }`}
+                >
+                  <img
+                    src={cat.image}
+                    alt={cat.label}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-95"
+                  />
+                  {isSelected && (
+                    <div className="absolute top-2 right-2 p-1 rounded-full bg-[#c6a04a] text-black">
+                      <Sparkles className="w-3 h-3" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Underlined Category Caption Label */}
+                <div className="space-y-0.5 border-b border-stone-800 pb-2 group-hover:border-stone-500 transition-colors">
+                  <div className={`font-serif text-sm sm:text-base font-medium ${
+                    isSelected ? 'text-[#c6a04a]' : 'text-white'
+                  }`}>
+                    {cat.label}
+                  </div>
+                  <div className="font-sans text-[11px] text-stone-400 font-light">
+                    {cat.sublabel}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Category Dish List Expand Panel */}
+        <div className="bg-stone-950/80 rounded-2xl border border-stone-800/80 p-6 sm:p-8 space-y-6">
+          <div className="flex items-center justify-between border-b border-stone-800 pb-3">
+            <h4 className="font-serif text-2xl text-white">
+              {activeCategoryData.label} — <span className="italic text-stone-400 text-lg">{activeCategoryData.sublabel}</span>
+            </h4>
+            <span className="font-sans text-xs text-stone-400">
+              {activeCategoryData.dishes.length} utvalda rätter
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+            {activeCategoryData.dishes.map((dish) => (
+              <div key={dish.id} className="space-y-1 group">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="font-serif text-base sm:text-lg text-white group-hover:text-[#c6a04a] transition-colors">
+                    {dish.name}
+                  </span>
+                  <div className="flex-1 border-b border-dotted border-stone-700/60 mx-2 hidden sm:block mb-1" />
+                  <span className="font-serif text-sm sm:text-base text-[#c6a04a] font-bold tabular-nums shrink-0">
+                    {dish.price}
+                  </span>
+                </div>
+                <p className="font-sans text-xs text-stone-400 font-light leading-relaxed">
+                  {dish.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 5. BOTTOM ATMOSPHERE SECTION: "Relax in our comfortable..."               */}
+      {/* ========================================================================= */}
+      <div className="pt-8 border-t border-stone-800 space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="md:col-span-6">
+            <h4 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white font-normal leading-snug">
+              Relax in our comfortable, <br />
+              spacious and gorgeous <br />
+              dining area.
+            </h4>
+          </div>
+
+          <div className="md:col-span-6 space-y-3 font-sans text-xs sm:text-sm text-stone-400 font-light leading-relaxed">
+            <p>
+              The signature of perfection is reflected in its many natural stone design elements and a variety of authentic materials, including polished copper, natural ceramics and curated Persian art.
+            </p>
+            <p>
+              Warm light creates an intimate and cozy atmosphere on Valhallavägen 120.
+            </p>
+          </div>
+        </div>
+
+        {/* Ambient Interior Visual */}
+        <div className="rounded-2xl overflow-hidden aspect-[21/9] bg-stone-900 border border-stone-800 shadow-xl">
+          <img
+            src="/images/sima-kitchen.jpg"
+            alt="Sima Deli Dining Room Atmosphere"
+            className="w-full h-full object-cover brightness-90 hover:scale-102 transition-transform duration-700"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/images/mazeh-tallrik.jpg';
+            }}
+          />
+        </div>
+      </div>
+
     </div>
   );
 };
