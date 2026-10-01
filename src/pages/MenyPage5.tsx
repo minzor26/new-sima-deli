@@ -1,6 +1,5 @@
 import React from 'react';
 import { MenuLayoutD } from '../components/menu/MenuLayoutD';
-import { MenuNavHeader } from '../components/menu/MenuNavHeader';
 
 interface MenyPageProps {
   onOpenBooking: () => void;
@@ -9,9 +8,7 @@ interface MenyPageProps {
 
 export const MenyPage5: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate }) => {
   return (
-    <div className="pt-24 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-      <MenuNavHeader currentMenuNumber={5} onNavigate={onNavigate} />
-
+    <div className="pt-24 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <main>
         <MenuLayoutD onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
       </main>
