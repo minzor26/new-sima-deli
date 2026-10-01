@@ -1,120 +1,145 @@
-import React, { useState } from 'react';
-import { MENU_CATEGORIES, MENU_ITEMS, type MenuItem } from '../data/siteData';
-import { Calendar, ShoppingBag, Leaf, Sparkles, Info } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar, ShoppingBag, LayoutGrid, Image as ImageIcon, Sparkles, BookOpen, Compass, Moon, Layers, Utensils, Flame } from 'lucide-react';
+import { MenuLayoutA } from '../components/menu/MenuLayoutA';
+import { MenuLayoutC } from '../components/menu/MenuLayoutC';
+import { MenuLayoutD } from '../components/menu/MenuLayoutD';
+import { MenuLayoutFoody } from '../components/menu/MenuLayoutFoody';
+import { MenuLayoutLuxuryDishes } from '../components/menu/MenuLayoutLuxuryDishes';
+import { MenuLayoutGorms } from '../components/menu/MenuLayoutGorms';
+import { MenuLayoutTasteAtlas } from '../components/menu/MenuLayoutTasteAtlas';
+import { MenuLayoutMidnight } from '../components/menu/MenuLayoutMidnight';
 
 interface MenyPageProps {
   onOpenBooking: () => void;
   onNavigate: (path: string) => void;
 }
 
+export type MenuDesignId =
+  | 'layout-a'
+  | 'layout-c'
+  | 'layout-d'
+  | 'foody'
+  | 'luxury-dishes'
+  | 'tasteatlas'
+  | 'gorms'
+  | 'midnight';
+
+interface MenuDesignOption {
+  id: MenuDesignId;
+  label: string;
+  badge: string;
+  refImage: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const MENU_DESIGNS: MenuDesignOption[] = [
+  {
+    id: 'foody',
+    label: 'Foody: Food Experience',
+    badge: 'Ny Referens',
+    refImage: 'Bild 3 ("It\'s not just Food, It\'s an Experience")',
+    description: 'Modern interaktiv matupplevelse med svävande örter, rund hjälte-tallrik och en horisontell slider med utstickande runda skålar.',
+    icon: Flame
+  },
+  {
+    id: 'luxury-dishes',
+    label: 'Dishes Menu: The Greatest Table',
+    badge: 'Ny Referens',
+    refImage: 'Bild 1 ("The Greatest Table Luxury Restaurant")',
+    description: 'Rund skärbräda i trä med hjälterätt, statistik-räknare (Visitors Daily, Deliveries) och 2-kolumners beställningsmeny med varukorgsknappar.',
+    icon: Utensils
+  },
+  {
+    id: 'layout-a',
+    label: 'A: Featured Image + Menu (Left)',
+    badge: 'Bild 2A',
+    refImage: 'Option A (Left Image)',
+    description: 'En stor matbild till vänster med signaturtext. Till höger: kategoriflikar, Starters-rubrik och maträtter med bildminiatyr.',
+    icon: ImageIcon
+  },
+  {
+    id: 'layout-c',
+    label: 'C: Modular Cards Grid',
+    badge: 'Bild 2C',
+    refImage: 'Option C (Modular Cards)',
+    description: '3 modulära kort med bilder och priser överst, följt av en 2-kolumners "More Dishes" textlista under.',
+    icon: LayoutGrid
+  },
+  {
+    id: 'layout-d',
+    label: 'D: Category Selective Images',
+    badge: 'Bild 2D',
+    refImage: 'Option D (Selective Images)',
+    description: 'Varje kategori i en egen sektion: Starters med bild till höger, Main Course med bild till vänster.',
+    icon: Layers
+  },
+  {
+    id: 'tasteatlas',
+    label: 'TasteAtlas: Food Guide Grid',
+    badge: 'Bild 3',
+    refImage: 'Bild 3 (Swedish Food / TasteAtlas)',
+    description: 'Table of contents-sidopanel med röd indikator, filterflikar, röda kategori-pills och 4-kolumners kort med bokmärke och betyg.',
+    icon: Compass
+  },
+  {
+    id: 'gorms',
+    label: 'Gorm’s: Skandinavisk Editorial',
+    badge: 'Bild 1',
+    refImage: 'Bild 1 (Gorm’s Minimal)',
+    description: 'Luftig minimalistisk vit tidningslayout med cirkulära svävande tallrikar, delikatesser och dryckeslista.',
+    icon: BookOpen
+  },
+  {
+    id: 'midnight',
+    label: 'Midnatt & Guld: Fine Dining',
+    badge: 'Bild 4',
+    refImage: 'Bild 4 (Midnight Luxury)',
+    description: 'Svart och champagne-guld fine dining med cocktails, exklusiva rätter och integrerad "Book A Table"-balk.',
+    icon: Moon
+  }
+];
+
 export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate }) => {
-  const [selectedCategory, setSelectedCategory] = useState("Alla");
-  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  // Read layout from URL search params or localStorage, fallback to 'foody'
+  const [activeDesign, setActiveDesign] = useState<MenuDesignId>(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlDesign = urlParams.get('design') as MenuDesignId;
+      if (urlDesign && MENU_DESIGNS.some((d) => d.id === urlDesign)) {
+        return urlDesign;
+      }
+      const saved = localStorage.getItem('sima_active_menu_design') as MenuDesignId;
+      if (saved && MENU_DESIGNS.some((d) => d.id === saved)) {
+        return saved;
+      }
+    }
+    return 'foody';
+  });
 
-  // Check if a dish has a valid image
-  const hasValidImage = (item: MenuItem) => {
-    return Boolean(item.image && item.image.trim() !== '' && !failedImages[item.id]);
+  const handleSelectDesign = (id: MenuDesignId) => {
+    setActiveDesign(id);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sima_active_menu_design', id);
+      const url = new URL(window.location.href);
+      url.searchParams.set('design', id);
+      window.history.replaceState({}, '', url.toString());
+    }
   };
 
-  const handleImageError = (itemId: string) => {
-    setFailedImages((prev) => ({ ...prev, [itemId]: true }));
-  };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeDesign]);
 
-  const handleCategorySelect = (cat: string) => {
-    setSelectedCategory(cat);
-  };
-
-  // Categories to display
-  const categoriesToDisplay = selectedCategory === "Alla"
-    ? MENU_CATEGORIES.filter((cat) => cat !== "Alla")
-    : [selectedCategory];
-
-  const getCategoryCount = (cat: string) => {
-    if (cat === "Alla") return MENU_ITEMS.length;
-    return MENU_ITEMS.filter((item) => item.category === cat).length;
-  };
-
-  // Helper to render a single menu item entry
-  const renderDishItem = (item: MenuItem) => (
-    <article key={item.id} className="group py-3.5 border-b border-[#EAE3DA]/70 last:border-0">
-      {/* Title, Dotted Leader & Price */}
-      <div className="flex items-baseline justify-between gap-2">
-        <h3 className="font-serif text-base sm:text-lg lg:text-xl font-bold text-[#1C1917] tracking-tight leading-snug">
-          {item.name}
-        </h3>
-        <div className="flex-1 border-b border-dotted border-[#D6CCC2] mx-2.5 hidden sm:block mb-1 opacity-70 group-hover:opacity-100 transition-opacity" />
-        {item.price && (
-          <span className="font-serif text-sm sm:text-base font-bold text-[#947128] shrink-0">
-            {item.price}
-          </span>
-        )}
-      </div>
-
-      {/* Description */}
-      {item.description && (
-        <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed mt-1 font-light">
-          {item.description}
-        </p>
-      )}
-
-      {/* Subitems (e.g. Mazeh-tallrik choices, Coffee/Tea options, portion variants) */}
-      {item.subItems && item.subItems.length > 0 && (
-        <div className="mt-2.5 pt-2 pl-3 border-l-2 border-[#c6a04a]/40 space-y-1 my-1.5 bg-[#FAF7F2]/70 rounded-r-lg py-2 pr-3">
-          {item.subItems.map((sub, idx) => (
-            <div key={idx} className="flex items-baseline justify-between text-xs py-0.5">
-              <div className="pr-2">
-                <span className="font-medium text-[#1C1917]">{sub.name}</span>
-                {sub.description && (
-                  <span className="text-[#78716C] block text-[11px] font-light mt-0.5">
-                    {sub.description}
-                  </span>
-                )}
-              </div>
-              <div className="flex-1 border-b border-dotted border-[#D6CCC2]/50 mx-2 hidden sm:block mb-1" />
-              {sub.price && (
-                <span className="font-serif font-bold text-[#1e5f6e] shrink-0 text-xs">
-                  {sub.price}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Dietary Tags & Notes */}
-      {(item.isVegan || item.isVegetarian || item.note) && (
-        <div className="flex flex-wrap items-center gap-1.5 mt-2">
-          {item.isVegan && (
-            <span className="inline-flex items-center gap-1 font-medium text-[9px] text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]/80">
-              <Leaf className="w-2.5 h-2.5" />
-              Vegan
-            </span>
-          )}
-          {item.isVegetarian && (
-            <span className="inline-flex items-center gap-1 font-medium text-[9px] text-[#1e5f6e] bg-[#cdebf2]/40 px-2 py-0.5 rounded-full border border-[#cdebf2]/80">
-              <Leaf className="w-2.5 h-2.5" />
-              Vegetarisk
-            </span>
-          )}
-          {item.note && (
-            <span className="inline-flex items-center gap-1 font-medium text-[9px] text-[#947128] bg-[#c6a04a]/10 px-2 py-0.5 rounded-full border border-[#c6a04a]/20">
-              <Sparkles className="w-2.5 h-2.5 text-[#c6a04a]" />
-              {item.note}
-            </span>
-          )}
-        </div>
-      )}
-    </article>
-  );
+  const currentOption = MENU_DESIGNS.find((d) => d.id === activeDesign) || MENU_DESIGNS[0];
 
   return (
-    <div className="pt-24 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-14">
+    <div className={`pt-24 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 ${activeDesign === 'midnight' ? 'text-[#FAF7F2]' : 'text-[#1C1917]'}`}>
       
       {/* ========================================================================= */}
-      {/* 1. EDITORIAL RESTAURANT HEADER (100% Preserved Text & Buttons)            */}
+      {/* 1. RESTAURANT EDITORIAL HEADER                                            */}
       {/* ========================================================================= */}
-      <header className="text-center max-w-2xl mx-auto space-y-3 sm:space-y-4">
-        {/* Subtle Istanbul / Persian Crest */}
+      <header className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
         <div className="flex items-center justify-center gap-3">
           <div className="h-px w-6 sm:w-12 bg-gradient-to-r from-transparent via-[#c6a04a] to-[#c6a04a]" />
           <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] text-[#947128]">
@@ -123,26 +148,25 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
           <div className="h-px w-6 sm:w-12 bg-gradient-to-l from-transparent via-[#c6a04a] to-[#c6a04a]" />
         </div>
 
-        <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-[#1C1917] tracking-tight">
+        <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight">
           Vår Meny
         </h1>
 
-        {/* Decorative Diamond Rule */}
         <div className="flex items-center justify-center gap-2 pt-0.5 pb-1 text-[#c6a04a]">
           <div className="h-px w-10 sm:w-16 bg-[#c6a04a]/40" />
           <span className="text-xs">◆</span>
           <div className="h-px w-10 sm:w-16 bg-[#c6a04a]/40" />
         </div>
 
-        <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed font-light max-w-xl mx-auto">
+        <p className={`text-xs sm:text-sm leading-relaxed font-light max-w-xl mx-auto ${activeDesign === 'midnight' ? 'text-stone-300' : 'text-[#57534E]'}`}>
           Traditionella recept tillagade med färska örter, saffran och omsorg. Njut på plats på Valhallavägen 120, ta med som take-away eller beställ hemleverans.
         </p>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1.5">
+        {/* Global Action Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
           <button
             onClick={onOpenBooking}
-            className="px-5 sm:px-6 py-2 rounded-full bg-[#c6a04a] hover:bg-[#b08d3b] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-200 shadow-2xs hover:shadow-xs flex items-center gap-2 cursor-pointer"
+            className="px-5 sm:px-6 py-2.5 rounded-full bg-[#c6a04a] hover:bg-[#b08d3b] text-white text-xs font-semibold uppercase tracking-wider transition-all duration-200 shadow-sm flex items-center gap-2 cursor-pointer"
           >
             <Calendar className="w-3.5 h-3.5" />
             <span>Boka Bord</span>
@@ -153,7 +177,11 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
               e.preventDefault();
               onNavigate('/hemleverans/');
             }}
-            className="px-5 sm:px-6 py-2 rounded-full bg-white hover:bg-[#FAF7F2] border border-[#d6ccc2] hover:border-[#1e5f6e]/50 text-[#1e5f6e] text-xs font-semibold uppercase tracking-wider transition-all duration-200 shadow-2xs hover:shadow-xs flex items-center gap-2"
+            className={`px-5 sm:px-6 py-2.5 rounded-full border text-xs font-semibold uppercase tracking-wider transition-all duration-200 shadow-sm flex items-center gap-2 ${
+              activeDesign === 'midnight'
+                ? 'bg-stone-900 border-stone-700 text-[#FAF7F2] hover:bg-stone-800'
+                : 'bg-white hover:bg-[#FAF7F2] border-[#d6ccc2] text-[#1e5f6e]'
+            }`}
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Beställ Hemleverans</span>
@@ -162,151 +190,127 @@ export const MenyPage: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate })
       </header>
 
       {/* ========================================================================= */}
-      {/* 2. CATEGORY NAVIGATION (Never Cut Off, Full Accessibility)                */}
+      {/* 2. MULTI-MENU DESIGN SELECTOR (PROMINENT TABS MATCHING REFERENCE IMAGES)   */}
       {/* ========================================================================= */}
-      <nav aria-label="Menykategorier" className="sticky top-[56px] sm:top-[68px] z-30 bg-[#FAF7F2]/95 backdrop-blur-md py-3 -mx-4 px-4 sm:mx-0 sm:px-0 border-y border-[#E8DFD3] transition-all">
-        <div className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-1.5 sm:gap-2 overflow-x-auto sm:overflow-x-visible no-scrollbar py-0.5">
-          {MENU_CATEGORIES.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            const count = getCategoryCount(cat);
+      <section className="bg-white rounded-3xl border border-[#E8DFD3] p-4 sm:p-6 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#EAE3DA] pb-3">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#c6a04a]" />
+            <h2 className="font-serif text-lg sm:text-xl font-bold text-[#1C1917]">
+              Välj Menydesign (Alla Referenser Tillgängliga)
+            </h2>
+          </div>
+          <span className="text-xs text-[#78716C]">
+            Klicka på en design för att växla stil direkt
+          </span>
+        </div>
+
+        {/* Tab Buttons for All Menu Layouts */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+          {MENU_DESIGNS.map((design) => {
+            const isSelected = activeDesign === design.id;
+            const Icon = design.icon;
+
             return (
               <button
-                key={cat}
-                onClick={() => handleCategorySelect(cat)}
-                className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                key={design.id}
+                onClick={() => handleSelectDesign(design.id)}
+                className={`p-3 rounded-2xl text-left transition-all duration-200 flex flex-col justify-between gap-2 cursor-pointer border ${
                   isSelected
-                    ? 'bg-[#1C1917] text-white shadow-xs ring-1 ring-[#1C1917]'
-                    : 'bg-white text-[#57534E] hover:text-[#1C1917] hover:bg-[#F4EFEA] border border-[#E8DFD3]'
+                    ? 'bg-[#1C1917] text-white border-[#1C1917] shadow-md ring-2 ring-[#c6a04a]'
+                    : 'bg-[#FAF7F2] hover:bg-white text-[#57534E] border-[#E8DFD3] hover:border-[#c6a04a]/60'
                 }`}
               >
-                <span>{cat}</span>
-                <span className={`text-[10px] tabular-nums ${isSelected ? 'text-white/70' : 'text-[#78716C]'}`}>
-                  ({count})
-                </span>
+                <div className="flex items-center justify-between w-full">
+                  <Icon className={`w-4 h-4 ${isSelected ? 'text-[#c6a04a]' : 'text-[#78716C]'}`} />
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${
+                    isSelected ? 'bg-[#c6a04a] text-white' : 'bg-[#EAE3DA] text-[#78716C]'
+                  }`}>
+                    {design.badge}
+                  </span>
+                </div>
+
+                <div>
+                  <div className={`font-serif text-xs sm:text-sm font-bold line-clamp-1 ${isSelected ? 'text-white' : 'text-[#1C1917]'}`}>
+                    {design.label}
+                  </div>
+                  <div className={`text-[10px] line-clamp-1 ${isSelected ? 'text-stone-300' : 'text-[#78716C]'}`}>
+                    {design.refImage}
+                  </div>
+                </div>
               </button>
             );
           })}
         </div>
-      </nav>
+
+        {/* Active Design Banner / Explanatory Note */}
+        <div className="bg-[#FAF7F2] rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs border border-[#EAE3DA]/80">
+          <div className="space-y-0.5">
+            <span className="font-bold text-[#1C1917]">
+              Aktiv stil: {currentOption.label}
+            </span>
+            <p className="text-[#57534E] font-light">
+              {currentOption.description}
+            </p>
+          </div>
+          <span className="shrink-0 text-[10px] font-mono text-[#947128] bg-white px-2.5 py-1 rounded-md border border-[#EAE3DA]">
+            Design-ID: {currentOption.id}
+          </span>
+        </div>
+      </section>
 
       {/* ========================================================================= */}
-      {/* 3. MENU CHAPTERS — 3 DISHES PER UNCROPPED FOOD IMAGE SPREAD               */}
+      {/* 3. DYNAMIC MENU VIEW RENDERING                                            */}
       {/* ========================================================================= */}
-      <main className="space-y-14 sm:space-y-20">
-        {categoriesToDisplay.map((categoryName, catIndex) => {
-          const categoryDishes = MENU_ITEMS.filter((item) => item.category === categoryName);
-          if (categoryDishes.length === 0) return null;
-
-          // Find dishes with images belonging to this category
-          const dishesWithImages = categoryDishes.filter((item) => hasValidImage(item));
-
-          // 3 dishes per editorial block
-          const chunkSize = 3;
-          const dishChunks: MenuItem[][] = [];
-          for (let i = 0; i < categoryDishes.length; i += chunkSize) {
-            dishChunks.push(categoryDishes.slice(i, i + chunkSize));
-          }
-
-          return (
-            <section key={categoryName} className="space-y-6 sm:space-y-8">
-              
-              {/* Category Chapter Heading */}
-              <div className="flex flex-col items-center text-center space-y-1.5 pb-1">
-                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#c6a04a]">
-                  Delikatess & Restaurang
-                </span>
-                <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#1C1917] tracking-tight">
-                  {categoryName}
-                </h2>
-                <div className="flex items-center justify-center gap-2 pt-0.5 text-[#c6a04a]/70">
-                  <div className="h-px w-10 sm:w-16 bg-[#c6a04a]/30" />
-                  <span className="text-[10px]">✦</span>
-                  <div className="h-px w-10 sm:w-16 bg-[#c6a04a]/30" />
-                </div>
-              </div>
-
-              {/* SECTION BODY: 2-COLUMN SPREAD WITH UNCROPPED IMAGE ON LEFT OR RIGHT */}
-              {dishesWithImages.length === 0 ? (
-                /* Text-only category: Elegant 2-column menu sheet */
-                <div className="bg-white rounded-2xl border border-[#E8DFD3] p-6 sm:p-8 lg:p-10 shadow-2xs">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-1">
-                    {categoryDishes.map((item) => renderDishItem(item))}
-                  </div>
-                </div>
-              ) : (
-                /* Category with images: Editorial blocks with uncropped photo on left or right */
-                <div className="space-y-8 sm:space-y-10">
-                  {dishChunks.map((chunk, chunkIdx) => {
-                    const chunkImageDish = chunk.find((item) => hasValidImage(item)) || dishesWithImages[chunkIdx % dishesWithImages.length];
-                    // Alternate left/right based on category index + chunk index
-                    const isImageOnLeft = (catIndex + chunkIdx) % 2 === 0;
-
-                    return (
-                      <div
-                        key={chunkIdx}
-                        className="bg-white rounded-2xl border border-[#E8DFD3] overflow-hidden shadow-2xs hover:shadow-xs transition-shadow duration-300"
-                      >
-                        <div
-                          className={`flex flex-col md:flex-row items-center ${
-                            !isImageOnLeft ? 'md:flex-row-reverse' : ''
-                          }`}
-                        >
-                          {/* UNCROPPED FULL PHOTO COLUMN (Left or Right on desktop, Top on mobile) */}
-                          <div className="w-full md:w-5/12 lg:w-5/12 bg-[#F4EFEA] flex items-center justify-center p-4 sm:p-6 self-stretch min-h-[280px] sm:min-h-[320px] relative overflow-hidden group">
-                            <div className="relative w-full h-full max-h-[360px] flex items-center justify-center">
-                              <img
-                                src={chunkImageDish.image}
-                                alt={chunkImageDish.name}
-                                onError={() => handleImageError(chunkImageDish.id)}
-                                className="w-auto h-auto max-w-full max-h-[340px] object-contain rounded-xl shadow-xs group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-                                loading="lazy"
-                              />
-                            </div>
-
-                            {/* Dish name & price overlay pill */}
-                            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between pointer-events-none">
-                              <span className="text-[11px] font-serif font-bold bg-[#1C1917]/85 backdrop-blur-md text-white px-2.5 py-1 rounded-md border border-white/20 shadow-xs">
-                                {chunkImageDish.name}
-                              </span>
-                              {chunkImageDish.price && (
-                                <span className="text-[11px] font-serif font-bold bg-[#FAF7F2]/95 text-[#1C1917] px-2.5 py-1 rounded-md border border-[#E8DFD3] shadow-xs">
-                                  {chunkImageDish.price}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* 3 DISHES MENU CONTENT LIST COLUMN */}
-                          <div className="w-full md:w-7/12 lg:w-7/12 p-6 sm:p-8 lg:p-10 flex flex-col justify-center divide-y divide-[#EAE3DA]/70">
-                            {chunk.map((item) => renderDishItem(item))}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-
-            </section>
-          );
-        })}
+      <main className="min-h-[500px]">
+        {activeDesign === 'foody' && (
+          <MenuLayoutFoody onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'luxury-dishes' && (
+          <MenuLayoutLuxuryDishes onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'layout-a' && (
+          <MenuLayoutA onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'layout-c' && (
+          <MenuLayoutC onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'layout-d' && (
+          <MenuLayoutD onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'tasteatlas' && (
+          <MenuLayoutTasteAtlas onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'gorms' && (
+          <MenuLayoutGorms onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
+        {activeDesign === 'midnight' && (
+          <MenuLayoutMidnight onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+        )}
       </main>
 
       {/* ========================================================================= */}
-      {/* 4. HOSPITALITY & ALLERGIES NOTE (100% Preserved Verbatim Content)         */}
+      {/* 4. FLOATING QUICK-SWITCHER PILL (EASY TO FLIP ANYTIME)                     */}
       {/* ========================================================================= */}
-      <footer className="bg-gradient-to-br from-white via-[#FAF7F2] to-[#F4EFEA] rounded-2xl p-6 sm:p-8 border border-[#E8DFD3] text-xs text-[#57534E] text-center max-w-2xl mx-auto space-y-1.5 shadow-2xs">
-        <div className="inline-flex p-1.5 rounded-full bg-[#c6a04a]/10 text-[#c6a04a] mb-0.5">
-          <Info className="w-3.5 h-3.5" />
+      <div className="fixed bottom-5 right-5 z-40 bg-[#1C1917]/95 text-white backdrop-blur-md px-4 py-2.5 rounded-full shadow-2xl border border-stone-700 flex items-center gap-3 text-xs">
+        <span className="hidden sm:inline text-stone-400 text-[11px] font-medium">Byt Menydesign:</span>
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {MENU_DESIGNS.map((d) => (
+            <button
+              key={d.id}
+              onClick={() => handleSelectDesign(d.id)}
+              title={d.label}
+              className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer flex items-center justify-center ${
+                activeDesign === d.id
+                  ? 'bg-[#c6a04a] text-white scale-105 shadow-sm'
+                  : 'bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-white'
+              }`}
+            >
+              {d.badge}
+            </button>
+          ))}
         </div>
-        <p className="font-serif text-base font-bold text-[#1C1917]">
-          Har du allergier eller särskilda önskemål?
-        </p>
-        <p className="leading-relaxed font-light text-xs">
-          Fråga gärna vår personal på plats eller ring oss på 08-660 36 35 så guidar vi dig genom våra rätter och ingredienser.
-        </p>
-      </footer>
-
+      </div>
     </div>
   );
 };
