@@ -12,6 +12,18 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [deliveryDropdownOpen, setDeliveryDropdownOpen] = useState(false);
+  const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
+
+  const MENU_DROPDOWN_LINKS = [
+    { path: '/meny-1/', title: 'Meny 1', desc: 'Foody Experience' },
+    { path: '/meny-2/', title: 'Meny 2', desc: 'The Greatest Table' },
+    { path: '/meny-3/', title: 'Meny 3', desc: 'Signature Dark Luxury' },
+    { path: '/meny-4/', title: 'Meny 4', desc: 'Modular Cards' },
+    { path: '/meny-5/', title: 'Meny 5', desc: 'Selective Images' },
+    { path: '/meny-6/', title: 'Meny 6', desc: 'TasteAtlas Guide' },
+    { path: '/meny-7/', title: 'Meny 7', desc: 'Gorm’s Editorial' },
+    { path: '/meny-8/', title: 'Meny 8', desc: 'Midnight & Gold' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +50,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
     onNavigate(path);
     setMobileMenuOpen(false);
     setDeliveryDropdownOpen(false);
+    setMenuDropdownOpen(false);
   };
+
+  const isAnyMenuPathActive = currentPath.startsWith('/meny');
 
   return (
     <>
@@ -79,7 +94,68 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
           {/* Desktop Navigation (visible on lg: >= 1024px) */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {NAV_LINKS.map((link) => {
-              const isActive = currentPath === link.path;
+              const isActive = link.path === '/meny/' ? isAnyMenuPathActive : currentPath === link.path;
+
+              // Special hover dropdown for Meny
+              if (link.path === '/meny/') {
+                return (
+                  <div
+                    key={link.path}
+                    className="relative"
+                    onMouseEnter={() => setMenuDropdownOpen(true)}
+                    onMouseLeave={() => setMenuDropdownOpen(false)}
+                  >
+                    <a
+                      href="/meny-1/"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick('/meny-1/');
+                      }}
+                      className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 rounded-full ${
+                        isActive
+                          ? 'bg-[#CDEBF2] text-[#1E5F6E] font-bold border border-[#B8E2EC]'
+                          : 'text-[#1C1917]/80 hover:text-[#1C1917] hover:bg-[#CDEBF2]/30'
+                      }`}
+                    >
+                      {link.name}
+                      <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                    </a>
+
+                    {menuDropdownOpen && (
+                      <div className="absolute top-full left-0 w-72 bg-[#FAF7F2] rounded-2xl shadow-xl border border-[#CDEBF2] p-2 mt-1 z-50 animate-fadeIn">
+                        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#1E5F6E] bg-[#CDEBF2]/50 px-3 py-1.5 rounded-lg mb-1">
+                          Välj Menysida (8 Olika Sidor)
+                        </div>
+                        <div className="space-y-0.5">
+                          {MENU_DROPDOWN_LINKS.map((item) => {
+                            const isItemActive = currentPath === item.path || (currentPath === '/meny/' && item.path === '/meny-1/');
+                            return (
+                              <a
+                                key={item.path}
+                                href={item.path}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleNavClick(item.path);
+                                }}
+                                className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
+                                  isItemActive
+                                    ? 'bg-[#CDEBF2] text-[#1E5F6E] font-bold'
+                                    : 'text-[#1C1917] hover:bg-[#CDEBF2]/40'
+                                }`}
+                              >
+                                <span className="font-semibold">{item.title}</span>
+                                <span className="text-[11px] text-[#78716C] font-light">
+                                  {item.desc}
+                                </span>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
 
               // Special hover dropdown for Hemleverans
               if (link.path === '/hemleverans/') {
