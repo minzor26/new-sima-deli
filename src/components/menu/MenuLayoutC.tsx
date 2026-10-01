@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Leaf, Sparkles } from 'lucide-react';
 
 interface MenuLayoutProps {
   onOpenBooking?: () => void;
