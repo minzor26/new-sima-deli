@@ -115,11 +115,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenBooking })
             
             {/* Left: Founder / Mother's authentic photo */}
             <div className="lg:col-span-5 relative order-2 lg:order-1">
-              <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-[#FAF7F2] aspect-4/5 image-zoom-container">
+              <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-[#FAF7F2] aspect-[3/4] bg-stone-100 p-2 flex items-center justify-center">
                 <img
                   src="/images/sima-kitchen.jpg"
                   alt="Mammas persiska matlagning hos Sima Deli"
-                  className="w-full h-full object-cover image-zoom-target"
+                  className="w-full h-full object-contain rounded-xl"
                   loading="lazy"
                 />
               </div>

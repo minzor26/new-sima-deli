@@ -81,44 +81,45 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
   ).slice(0, 4);
 
   return (
-    <div className="bg-[#F6F2EC] rounded-3xl p-6 sm:p-10 lg:p-14 border border-[#ECE5DC] shadow-sm max-w-7xl mx-auto space-y-16 animate-fadeIn relative overflow-hidden text-stone-900">
-      
-      {/* Toast Notification */}
-      {addedItem && (
-        <div className="fixed top-24 right-8 z-50 bg-[#1C1917] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs border border-stone-700 animate-slideDown">
-          <Sparkles className="w-4 h-4 text-[#E22A3A]" />
-          <span>Tillagd i din beställning: <strong>{addedItem}</strong></span>
-        </div>
-      )}
-
-      {/* Decorative Floating Leaves (Exact match to Foody reference) */}
-      <div className="absolute top-10 right-1/3 opacity-70 pointer-events-none transform -rotate-12 animate-pulse">
-        <span className="text-3xl">🍃</span>
-      </div>
-      <div className="absolute bottom-20 left-6 opacity-60 pointer-events-none transform rotate-45">
-        <span className="text-2xl">🌿</span>
-      </div>
-      <div className="absolute top-36 right-8 opacity-75 pointer-events-none transform rotate-180">
-        <span className="text-2xl">🌱</span>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* 1. HERO SECTION: "it's not just Food, It's an Experience."                */}
-      {/* ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div className="w-full min-h-screen bg-[#F6F2EC] pt-24 sm:pt-28 pb-24 text-stone-900 animate-fadeIn relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
-        {/* Left Column: Heading, CTA Buttons & Reviews */}
-        <div className="lg:col-span-6 space-y-6 sm:space-y-8">
-          <div className="space-y-3">
-            <span className="inline-block px-3 py-1 rounded-full bg-[#E22A3A]/10 text-[#E22A3A] text-xs font-bold uppercase tracking-wider">
-              Sima Deli Stockholm
-            </span>
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-stone-900 tracking-tight leading-[1.08]">
-              it's not just <br />
-              Food, It's an <br />
-              <span className="text-[#E22A3A] font-bold">Experience.</span>
-            </h2>
+        {/* Toast Notification */}
+        {addedItem && (
+          <div className="fixed top-24 right-8 z-50 bg-[#1C1917] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs border border-stone-700 animate-slideDown">
+            <Sparkles className="w-4 h-4 text-[#E22A3A]" />
+            <span>Tillagd i din beställning: <strong>{addedItem}</strong></span>
           </div>
+        )}
+
+        {/* Decorative Floating Leaves */}
+        <div className="absolute top-10 right-1/3 opacity-70 pointer-events-none transform -rotate-12 animate-pulse">
+          <span className="text-3xl">🍃</span>
+        </div>
+        <div className="absolute bottom-20 left-6 opacity-60 pointer-events-none transform rotate-45">
+          <span className="text-2xl">🌿</span>
+        </div>
+        <div className="absolute top-36 right-8 opacity-75 pointer-events-none transform rotate-180">
+          <span className="text-2xl">🌱</span>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 1. HERO SECTION                                                           */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Column: Heading, CTA Buttons & Reviews */}
+          <div className="lg:col-span-6 space-y-6 sm:space-y-8">
+            <div className="space-y-3">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#E22A3A]/10 text-[#E22A3A] text-xs font-bold uppercase tracking-wider">
+                Sima Deli Stockholm
+              </span>
+              <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-stone-900 tracking-tight leading-[1.08]">
+                Det är inte bara <br />
+                Mat, det är en <br />
+                <span className="text-[#E22A3A] font-bold">Upplevelse.</span>
+              </h2>
+            </div>
 
           <p className="text-sm text-stone-600 font-light leading-relaxed max-w-md">
             Upplev den magiska doften av saffran, färska persiska örter och möra långkok. Tillagat enligt tradition på Valhallavägen 120.
@@ -169,17 +170,17 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
           </div>
         </div>
 
-        {/* Right Column: Giant Circular Hero Bowl with Floating Discount Badge */}
+        {/* Right Column: Hero Dish Display */}
         <div className="lg:col-span-6 flex justify-center relative">
-          <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden shadow-2xl ring-8 ring-white/90 bg-stone-900 group">
+          <div className="relative w-72 sm:w-80 rounded-3xl overflow-hidden shadow-2xl ring-8 ring-white/90 bg-white p-2.5 group">
             <img
               src="/images/zereshk-polo.jpg"
               alt="Sima Deli Zereshkpolo"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              className="w-full h-auto max-h-96 object-contain rounded-2xl group-hover:scale-102 transition-transform duration-700 mx-auto"
             />
           </div>
 
-          {/* Floating Discount Tag Badge (Exact match to Image 3) */}
+          {/* Floating Discount Tag Badge */}
           <div className="absolute top-4 left-6 sm:left-10 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl border border-stone-200/80 flex items-center gap-2 text-xs">
             <span className="w-6 h-6 rounded-lg bg-[#E22A3A]/10 text-[#E22A3A] flex items-center justify-center font-bold text-xs">
               %
@@ -194,7 +195,7 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. BOTTOM INTERACTIVE DISH SLIDER (CARDS WITH POPPING CIRCULAR BOWLS)     */}
+      {/* 2. BOTTOM INTERACTIVE DISH SLIDER                                         */}
       {/* ========================================================================= */}
       <div className="pt-8 space-y-6">
         <div className="flex items-center justify-between">
@@ -219,33 +220,33 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
           </div>
         </div>
 
-        {/* 4 Cards Grid with Circular Popping Dish Plates */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-10">
+        {/* 4 Cards Grid with Whole Uncropped Images */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
           {visibleDishes.map((dish) => (
             <div
               key={dish.id}
-              className="bg-white/90 backdrop-blur-md rounded-3xl p-5 pt-12 pb-6 border border-white shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between group"
+              className="bg-white/90 backdrop-blur-md rounded-3xl p-4 border border-stone-200 shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between group"
             >
-              {/* Circular Overhead Plated Dish Popping Over Top Edge */}
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shadow-lg ring-4 ring-white bg-stone-100">
-                <img
-                  src={dish.image}
-                  alt={dish.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-
               {/* Floating Cart Button at Top Right of Card */}
               <button
                 onClick={() => handleAddToCart(dish.name)}
-                className="absolute top-3 right-3 w-7 h-7 rounded-full bg-stone-900 text-white flex items-center justify-center hover:bg-[#E22A3A] transition-colors cursor-pointer shadow-xs"
+                className="absolute top-6 right-6 z-10 w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center hover:bg-[#E22A3A] transition-colors cursor-pointer shadow-md"
                 title="Lägg till i beställning"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
               </button>
 
+              {/* Whole Uncropped Image Container */}
+              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-stone-50 border border-stone-100 p-2 flex items-center justify-center">
+                <img
+                  src={dish.image}
+                  alt={dish.name}
+                  className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
               {/* Dish Content */}
-              <div className="pt-10 text-center space-y-1">
+              <div className="pt-3 text-center space-y-1">
                 <h4 className="font-serif font-bold text-base text-stone-900 group-hover:text-[#E22A3A] transition-colors">
                   {dish.name}
                 </h4>
@@ -255,7 +256,7 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
               </div>
 
               {/* Price & Action */}
-              <div className="pt-4 flex items-center justify-between border-t border-stone-100 mt-3">
+              <div className="pt-3 flex items-center justify-between border-t border-stone-100 mt-3">
                 <span className="font-serif font-bold text-sm text-[#E22A3A]">
                   {dish.price}
                 </span>
@@ -270,7 +271,7 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
           ))}
         </div>
       </div>
-
+      </div>
     </div>
   );
 };

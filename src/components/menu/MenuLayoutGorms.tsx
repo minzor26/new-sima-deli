@@ -14,48 +14,49 @@ export const MenuLayoutGorms: React.FC<MenuLayoutProps> = () => {
   const drinks = MENU_ITEMS.filter((i) => i.category === "Drycker");
 
   return (
-    <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs p-6 sm:p-12 lg:p-16 max-w-5xl mx-auto space-y-16 sm:space-y-24 text-stone-900 font-sans animate-fadeIn">
-      
-      {/* 1. EDITORIAL HEADER & TOP BANNER SPREAD */}
-      <div className="space-y-8">
-        {/* Subtle Brand & Title */}
-        <div className="flex flex-col items-start border-b border-stone-200 pb-6">
-          <span className="text-[11px] tracking-[0.25em] uppercase text-stone-500 font-medium">
-            gourmet persiskt kök & delikatesser
-          </span>
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight font-normal text-stone-900 mt-2">
-            MENU
-          </h2>
-        </div>
-
-        {/* Hero Visual Spread: Story & Plated Spread */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          <div className="md:col-span-5 space-y-4 text-xs sm:text-sm text-stone-600 leading-relaxed font-light">
-            <p className="font-serif italic text-base sm:text-lg text-stone-800 leading-snug">
-              Välkommen till Sima Deli — en kulinarisk mötesplats där persisk tradition förenas med nordisk finess.
-            </p>
-            <p>
-              Våra grytor långkokas i timmar med torkad lime och färska örter. Saffranet handplockas och riset ångas till perfektion med krispig botten (tahdig).
-            </p>
-            <p className="text-[11px] text-stone-400">
-              Traditional recipes crafted with fresh herbs, barberries, saffron and heritage hospitality on Valhallavägen.
-            </p>
+    <div className="w-full min-h-screen bg-[#FAF9F5] pt-24 sm:pt-28 pb-24 animate-fadeIn">
+      <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs p-6 sm:p-12 lg:p-16 max-w-5xl mx-auto space-y-16 sm:space-y-24 text-stone-900 font-sans">
+        
+        {/* 1. EDITORIAL HEADER & TOP BANNER SPREAD */}
+        <div className="space-y-8">
+          {/* Subtle Brand & Title */}
+          <div className="flex flex-col items-start border-b border-stone-200 pb-6">
+            <span className="text-[11px] tracking-[0.25em] uppercase text-stone-500 font-medium">
+              gourmet persiskt kök & delikatesser
+            </span>
+            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight font-normal text-stone-900 mt-2">
+              MENY
+            </h2>
           </div>
 
-          <div className="md:col-span-7">
-            <div className="rounded-2xl overflow-hidden shadow-sm aspect-[16/10] bg-stone-100">
-              <img
-                src="/images/sima-kitchen.jpg"
-                alt="Sima Deli Köksmiljö"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/images/mazeh-tallrik.jpg';
-                }}
-              />
+          {/* Hero Visual Spread: Story & Plated Spread */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div className="md:col-span-5 space-y-4 text-xs sm:text-sm text-stone-600 leading-relaxed font-light">
+              <p className="font-serif italic text-base sm:text-lg text-stone-800 leading-snug">
+                Välkommen till Sima Deli — en kulinarisk mötesplats där persisk tradition förenas med nordisk finess.
+              </p>
+              <p>
+                Våra grytor långkokas i timmar med torkad lime och färska örter. Saffranet handplockas och riset ångas till perfektion med krispig botten (tahdig).
+              </p>
+              <p className="text-[11px] text-stone-400">
+                Traditionella persiska recept tillagade med färska örter, berberis, saffran och genuin gästfrihet på Valhallavägen 120.
+              </p>
+            </div>
+
+            <div className="md:col-span-7">
+              <div className="rounded-2xl overflow-hidden shadow-sm bg-stone-50 border border-stone-200 p-2 flex items-center justify-center">
+                <img
+                  src="/images/sima-kitchen.jpg"
+                  alt="Sima Deli Köksmiljö"
+                  className="w-full max-h-[460px] object-contain rounded-xl"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/images/mazeh-tallrik.jpg';
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       {/* 2. SECTION: VARMARÄTTER WITH FLOATING CIRCULAR PLATED DISH */}
       <section className="space-y-8">
@@ -85,20 +86,20 @@ export const MenuLayoutGorms: React.FC<MenuLayoutProps> = () => {
             ))}
           </div>
 
-          {/* Floating Overhead Circular Plated Dish */}
+          {/* Uncropped Dish Display */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full overflow-hidden shadow-xl ring-8 ring-stone-100/80 group">
+            <div className="relative w-64 sm:w-72 aspect-[3/4] rounded-3xl overflow-hidden shadow-xl ring-8 ring-stone-100/80 bg-white p-2 flex items-center justify-center group">
               <img
                 src="/images/zereshk-polo.jpg"
-                alt="Zereshkpolo overhead"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                alt="Zereshkpolo"
+                className="w-full h-full object-contain rounded-2xl group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. SECTION: ANTIPASTI & MAZEH (FLOATING CIRCULAR DISH ON LEFT) */}
+      {/* 3. SECTION: ANTIPASTI & MAZEH (FULL DISH ON LEFT) */}
       <section className="space-y-8">
         <div className="border-b border-stone-200 pb-2">
           <span className="text-xs uppercase tracking-widest text-stone-400 font-medium">Antipasti & Smårätter</span>
@@ -106,13 +107,13 @@ export const MenuLayoutGorms: React.FC<MenuLayoutProps> = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
-          {/* Floating Circular Dish on Left */}
+          {/* Full Dish Display on Left */}
           <div className="lg:col-span-5 flex justify-center order-2 lg:order-1">
-            <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full overflow-hidden shadow-xl ring-8 ring-stone-100/80 group">
+            <div className="relative w-64 sm:w-72 aspect-[3/4] rounded-3xl overflow-hidden shadow-xl ring-8 ring-stone-100/80 bg-white p-2 flex items-center justify-center group">
               <img
                 src="/images/shirazi-salad.jpg"
-                alt="Salad Shirazi overhead"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                alt="Salad Shirazi"
+                className="w-full h-full object-contain rounded-2xl group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>
@@ -155,11 +156,11 @@ export const MenuLayoutGorms: React.FC<MenuLayoutProps> = () => {
             219 kr / person
           </span>
         </div>
-        <div className="md:col-span-5 rounded-xl overflow-hidden aspect-[4/3] bg-stone-200 shadow-sm">
+        <div className="md:col-span-5 rounded-2xl overflow-hidden aspect-[4/3] bg-white border border-stone-200 shadow-sm p-2 flex items-center justify-center">
           <img
             src="/images/mazeh-tallrik.jpg"
             alt="Mazeh-tallrik planka"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain rounded-xl"
           />
         </div>
       </div>
@@ -184,11 +185,11 @@ export const MenuLayoutGorms: React.FC<MenuLayoutProps> = () => {
             ))}
           </div>
 
-          <div className="rounded-xl overflow-hidden shadow-sm aspect-[16/9] bg-stone-100">
+          <div className="rounded-2xl overflow-hidden shadow-sm aspect-[4/3] bg-white border border-stone-200 p-2 flex items-center justify-center">
             <img
               src="/images/sholeh-zard.jpg"
               alt="Sholeh Zard Saffranspudding"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain rounded-xl"
             />
           </div>
         </div>
@@ -243,6 +244,7 @@ export const MenuLayoutGorms: React.FC<MenuLayoutProps> = () => {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 };

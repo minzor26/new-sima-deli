@@ -21,69 +21,69 @@ export const MenuLayoutD: React.FC<MenuLayoutProps> = () => {
   const sections: CategorySection[] = [
     {
       id: 'starters',
-      title: 'Starters',
+      title: 'Förrätter & Mazeh',
       image: '/images/zereshk-polo.jpg',
-      imageAlt: 'Starters Featured Dish',
+      imageAlt: 'Förrätter & Mazeh',
       imagePosition: 'right',
       items: [
         {
           id: 'zereshk-polo',
           name: 'Zereshkpolo',
-          category: 'Starters',
-          description: 'Marinated chicken fillet in tomato sauce, served with saffron rice, zereshk (barberries) and pistachios.',
+          category: 'Förrätter',
+          description: 'Marinerad kycklingfilé i tomatsås, serveras med saffransris, zereshk (berberisbär) och pistagenötter.',
           price: '189 kr'
         },
         {
           id: 'gheymeh',
           name: 'Gheymeh',
-          category: 'Starters',
-          description: 'Lamb stew with yellow lentils, cherry tomatoes and dried lime, served with saffron rice.',
+          category: 'Förrätter',
+          description: 'Köttgryta med gula linser, körsbärstomater, torkad lime, serveras med saffransris.',
           price: '189 kr'
         },
         {
           id: 'veg-gheymeh',
           name: 'Vegan Gheymeh Bademjan',
-          category: 'Starters',
-          description: 'Stew with yellow lentils, cherry tomatoes, dried lime and roasted eggplant, served with saffron rice.',
+          category: 'Förrätter',
+          description: 'Gryta med gula linser, körsbärstomater, torkad lime och stekt aubergine, serveras med saffransris.',
           price: '189 kr',
           isVegan: true,
-          note: 'Vegan Friendly'
+          note: 'Vegansk favorit'
         }
       ]
     },
     {
       id: 'main',
-      title: 'Main Course',
+      title: 'Varmrätter & Grytor',
       image: '/images/baghali-polo.jpg',
-      imageAlt: 'Main Course Featured Dish',
+      imageAlt: 'Varmrätter & Grytor',
       imagePosition: 'left',
       items: [
         {
           id: 'ghormeh-sabzi',
           name: 'Ghormeh-Sabzi',
-          category: 'Main Course',
-          description: 'Herb stew with kidney beans and dried lime, served with saffron rice.',
+          category: 'Varmrätter',
+          description: 'Långkokt örtgryta med kidneybönor och torkad lime, serveras med saffransris.',
           price: '189 kr'
         },
         {
           id: 'baghali-polo',
           name: 'Baghali-Polo Mahiche',
-          category: 'Main Course',
-          description: 'Slow-cooked lamb shank with dill and broad bean rice.',
+          category: 'Varmrätter',
+          description: 'Mört långkokt lammlägg med dill och bondbönor, serveras med saffransris.',
           price: '259 kr'
         },
         {
           id: 'fesenjan',
           name: 'Fesenjan',
-          category: 'Main Course',
-          description: 'Rich pomegranate and walnut stew, served with saffron rice.',
+          category: 'Varmrätter',
+          description: 'Fyllig granatäppel- och valnötsgryta, serveras med saffransris.',
           price: '249 kr'
         },
         {
           id: 'tahchin',
           name: 'Tahchin',
-          category: 'Main Course',
-          description: 'Saffron rice cake with chicken, yoghurt and aromatic spices.',
+          category: 'Varmrätter',
+          description: 'Krispig persisk saffranskaka med kyckling, yoghurt och aromatiska kryddor.',
           price: '189 kr'
         }
       ]
@@ -92,7 +92,7 @@ export const MenuLayoutD: React.FC<MenuLayoutProps> = () => {
       id: 'mazeh',
       title: 'Mazeh & Delikatesser',
       image: '/images/mazeh-tallrik.jpg',
-      imageAlt: 'Mazeh Featured Dish',
+      imageAlt: 'Mazeh Delikatesser',
       imagePosition: 'right',
       items: [
         {
@@ -122,9 +122,9 @@ export const MenuLayoutD: React.FC<MenuLayoutProps> = () => {
     },
     {
       id: 'desserts',
-      title: 'Desserts & Sött',
+      title: 'Desserter & Sött',
       image: '/images/sholeh-zard.jpg',
-      imageAlt: 'Dessert Featured Dish',
+      imageAlt: 'Dessert & Sött',
       imagePosition: 'left',
       items: MENU_ITEMS.filter((i) => i.category === 'Något sött').map((d) => ({
         ...d,
@@ -138,7 +138,8 @@ export const MenuLayoutD: React.FC<MenuLayoutProps> = () => {
     : sections.filter((s) => s.id === activeCategory);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-10 animate-fadeIn font-sans text-[#1C1917]">
+    <div className="w-full min-h-screen bg-[#FAF7F2] pt-24 sm:pt-28 pb-24 animate-fadeIn font-sans text-[#1C1917]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
       
       {/* Category Filter Pills (Optional toggle for seamless browsing) */}
       <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar py-2">
@@ -185,11 +186,11 @@ export const MenuLayoutD: React.FC<MenuLayoutProps> = () => {
                     isImageLeft ? 'order-1' : 'order-1 lg:order-2'
                   }`}
                 >
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-sm bg-stone-100 group">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-sm bg-white border border-[#ECE5DC] p-2 flex items-center justify-center group">
                     <img
                       src={section.image}
                       alt={section.imageAlt}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
                   </div>
@@ -250,7 +251,7 @@ export const MenuLayoutD: React.FC<MenuLayoutProps> = () => {
           );
         })}
       </div>
-
     </div>
-  );
+  </div>
+);
 };

@@ -29,11 +29,11 @@ export const OmOssPage: React.FC<OmOssPageProps> = ({ onOpenBooking, onNavigate 
         
         {/* Left: Authentic Kitchen / Mother photo */}
         <div className="lg:col-span-6 relative">
-          <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FAF7F2] aspect-4/5 image-zoom-container">
+          <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FAF7F2] aspect-[3/4] bg-stone-100 p-2 flex items-center justify-center">
             <img
               src="/images/sima-kitchen.jpg"
               alt="Mamma i köket på Sima Deli"
-              className="w-full h-full object-cover image-zoom-target"
+              className="w-full h-full object-contain rounded-2xl"
             />
           </div>
           <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-[#E7E0D8] max-w-xs space-y-2">

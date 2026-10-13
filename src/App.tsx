@@ -10,8 +10,7 @@ import { MenyPage2 } from './pages/MenyPage2';
 import { MenyPage3 } from './pages/MenyPage3';
 import { MenyPage4 } from './pages/MenyPage4';
 import { MenyPage5 } from './pages/MenyPage5';
-import { MenyPage6 } from './pages/MenyPage6';
-import { MenyPage7 } from './pages/MenyPage7';
+
 import { MenyPage8 } from './pages/MenyPage8';
 import { CateringPage } from './pages/CateringPage';
 import { MatladorPage } from './pages/MatladorPage';
@@ -54,8 +53,7 @@ export function App() {
       '/meny-3/': 'Meny 3: Signature Dark Luxury | Sima Deli Stockholm',
       '/meny-4/': 'Meny 4: Modular Cards | Sima Deli Stockholm',
       '/meny-5/': 'Meny 5: Selective Images | Sima Deli Stockholm',
-      '/meny-6/': 'Meny 6: TasteAtlas Guide | Sima Deli Stockholm',
-      '/meny-7/': 'Meny 7: Gorm’s Editorial | Sima Deli Stockholm',
+
       '/meny-8/': 'Meny 8: Midnight & Gold | Sima Deli Stockholm',
       '/catering/': 'Catering & Abonnering | Sima Deli Stockholm',
       '/sima-deli-matlador/': 'Sima Deli Matlådor | Återförsäljare i Butik runt Stockholm',
@@ -95,10 +93,7 @@ export function App() {
         return <MenyPage4 onOpenBooking={() => setIsBookingModalOpen(true)} onNavigate={handleNavigate} />;
       case '/meny-5/':
         return <MenyPage5 onOpenBooking={() => setIsBookingModalOpen(true)} onNavigate={handleNavigate} />;
-      case '/meny-6/':
-        return <MenyPage6 onOpenBooking={() => setIsBookingModalOpen(true)} onNavigate={handleNavigate} />;
-      case '/meny-7/':
-        return <MenyPage7 onOpenBooking={() => setIsBookingModalOpen(true)} onNavigate={handleNavigate} />;
+
       case '/meny-8/':
         return <MenyPage8 onOpenBooking={() => setIsBookingModalOpen(true)} onNavigate={handleNavigate} />;
       case '/catering/':

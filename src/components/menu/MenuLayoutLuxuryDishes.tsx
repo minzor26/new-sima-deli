@@ -19,42 +19,42 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
     {
       id: 'zereshk-polo',
       name: 'ZERESHKPOLO',
-      description: 'Marinated chicken fillet in tomato sauce, saffron rice, zereshk and pistachios.',
+      description: 'Marinerad kycklingfilé i tomatsås, saffransris, zereshk (berberisbär) och pistagenötter.',
       price: '189 kr',
       image: '/images/zereshk-polo.jpg'
     },
     {
       id: 'ghormeh-sabzi',
       name: 'GHORMEH-SABZI',
-      description: 'Herb stew with kidney beans, tender meat and sun-dried black limes.',
+      description: 'Traditionell persisk örtgryta med kidneybönor, mört kött och torkad svart lime.',
       price: '189 kr',
       image: '/images/ghormeh-sabzi.jpg'
     },
     {
       id: 'baghali-polo',
       name: 'BAGHALI-POLO MAHICHE',
-      description: 'Slow-cooked lamb shank served with dill and tender fava bean rice.',
+      description: 'Långkokt mört lammlägg serveras med dill- och bondbönris.',
       price: '259 kr',
       image: '/images/baghali-polo.jpg'
     },
     {
       id: 'tahchin',
       name: 'TAHCHIN',
-      description: 'Crispy saffron rice cake with spiced chicken, egg and Persian yogurt.',
+      description: 'Krispig saffransriskaka med kryddad kyckling, ägg och persisk yoghurt.',
       price: '189 kr',
       image: '/images/tahchin.jpg'
     },
     {
       id: 'gheymeh',
       name: 'GHEYMEH BADEMJAN',
-      description: 'Yellow lentil stew with roasted eggplants, cherry tomatoes and saffron rice.',
+      description: 'Gryta med gula linser, ugnsrostade auberginer, körsbärstomater och saffransris.',
       price: '189 kr',
       image: '/images/gheymeh.jpg'
     },
     {
       id: 'zaboon',
       name: 'ZABOON SPECIAL',
-      description: 'Tender beef tongue in fragrant broth with barbari bread and torshi.',
+      description: 'Mör oxtunga i aromatisk buljong serveras med persiskt bröd och torshi.',
       price: '229 kr',
       image: '/images/zaboon.jpg'
     }
@@ -64,95 +64,96 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
     {
       id: 'mazeh-tallrik',
       name: 'SIMA MAZEH TALLRIK',
-      description: 'Selection of Persian dips, Kashke Bademjan, Olovieh, herbs and fresh bread.',
+      description: 'Urval av persiska röror – Kashke Bademjan, Olovieh, färska örter och nybakat bröd.',
       price: '219 kr',
       image: '/images/mazeh-tallrik.jpg'
     },
     {
       id: 'shirazi-salad',
       name: 'SALAD SHIRAZI',
-      description: 'Finely diced cucumbers, tomatoes, red onions, dried mint and olive oil.',
+      description: 'Fint tärnad gurka, tomat, rödlök, torkad mynta, olivolja och citron.',
       price: '65 kr',
       image: '/images/shirazi-salad.jpg'
     },
     {
       id: 'mastmoosir',
       name: 'MAST-O-MOOSIR',
-      description: 'Creamy yogurt infused with wild Persian mountain shallots and herbs.',
+      description: 'Krämig yoghurt smaksatt med vild persisk berglök och örter.',
       price: '69 kr',
       image: '/images/mastmoosir.jpg'
     },
     {
       id: 'olovieh',
       name: 'SALAD OLOVIEH',
-      description: 'Traditional potato salad with shredded chicken, sweet peas and pickles.',
+      description: 'Klassisk persisk potatissallad med kyckling, gröna ärtor och saltgurka.',
       price: '89 kr',
       image: '/images/olovieh.jpg'
     },
     {
       id: 'koo-koo',
       name: 'KOO-KOO SABZI',
-      description: 'Persian fresh herb frittata with barberries, walnuts and garlic.',
+      description: 'Persisk färsk örtomelett med berberisbär, valnötter och vitlök.',
       price: '95 kr',
       image: '/images/koo-koo.jpg'
     },
     {
       id: 'sholeh-zard',
       name: 'SHOLEH ZARD',
-      description: 'Saffron rice dessert with rosewater, cinnamon, pistachios and almonds.',
+      description: 'Traditionell saffransdessert med rosenvatten, kanel, pistage och mandel.',
       price: '79 kr',
       image: '/images/sholeh-zard.jpg'
     }
   ];
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-14 border border-stone-200 shadow-sm max-w-7xl mx-auto space-y-20 font-sans animate-fadeIn text-stone-900">
-      
-      {/* Toast Alert */}
-      {addedItem && (
-        <div className="fixed top-24 right-8 z-50 bg-[#1C1917] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs border border-stone-700 animate-slideDown">
-          <Sparkles className="w-4 h-4 text-[#c6a04a]" />
-          <span>Tillagd: <strong>{addedItem}</strong></span>
-        </div>
-      )}
+    <div className="w-full min-h-screen bg-[#FAF8F5] pt-24 sm:pt-28 pb-24 font-sans animate-fadeIn text-stone-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+        
+        {/* Toast Alert */}
+        {addedItem && (
+          <div className="fixed top-24 right-8 z-50 bg-[#1C1917] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs border border-stone-700 animate-slideDown">
+            <Sparkles className="w-4 h-4 text-[#c6a04a]" />
+            <span>Tillagd: <strong>{addedItem}</strong></span>
+          </div>
+        )}
 
       {/* ========================================================================= */}
-      {/* 1. TOP HEADER & HERO SECTION (Exact Reference 1: "Dishes Menu")             */}
+      {/* 1. TOP HEADER & HERO SECTION                                              */}
       {/* ========================================================================= */}
       <div className="space-y-12">
-        {/* Title & Breadcrumbs */}
+        {/* Title & Breadcrumbs in Swedish */}
         <div className="text-center space-y-1">
           <h2 className="font-sans text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-stone-900">
-            DISHES MENU
+            SIMA DELI MENY
           </h2>
           <div className="text-xs text-stone-400 font-medium">
-            <span>Home</span> / <span className="text-[#c6a04a]">Menu</span> / <span>Dishes</span>
+            <span>Hem</span> / <span className="text-[#c6a04a]">Meny</span> / <span>Varmrätter</span>
           </div>
         </div>
 
-        {/* Hero Banner: Wooden Board on Left, Story on Right */}
+        {/* Hero Banner: Platter Photo on Left, Story on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-[#FAF8F5] p-6 sm:p-10 rounded-3xl border border-stone-200">
           
-          {/* Left: Wooden Board Platter Photo */}
+          {/* Left: Complete Dish Photo without circular crop */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden shadow-xl ring-8 ring-white bg-amber-50">
+            <div className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-xl ring-8 ring-white bg-white p-2.5 flex items-center justify-center">
               <img
                 src="/images/zereshk-polo.jpg"
-                alt="The Greatest Table Luxury Dish"
-                className="w-full h-full object-cover"
+                alt="Sima Deli Zereshkpolo"
+                className="w-full h-auto max-h-80 sm:max-h-96 object-contain rounded-2xl"
               />
             </div>
           </div>
 
-          {/* Right: "THE GREATEST TABLE LUXURY RESTAURANT" */}
+          {/* Right: Swedish Header & Story */}
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#c6a04a]">
               <span>—</span>
-              <span>BEST QUALITY FOOD</span>
+              <span>BÄSTA KVALITET</span>
             </div>
 
             <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-900 leading-tight">
-              THE GREATEST TABLE LUXURY RESTAURANT.
+              STOCKHOLMS MEST SMAKRIKA PERSISKA BORD.
             </h3>
 
             <p className="text-xs sm:text-sm text-stone-600 font-light leading-relaxed max-w-lg">
@@ -164,7 +165,7 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
                 onClick={() => onNavigate && onNavigate('/om-oss/')}
                 className="px-6 py-2.5 rounded-full bg-[#1C1917] hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-sm flex items-center gap-2"
               >
-                <span>ABOUT RESTAURANT</span>
+                <span>OM RESTAURANGEN</span>
                 <span>→</span>
               </button>
               <a
@@ -179,31 +180,31 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
 
         </div>
 
-        {/* 2. STAT COUNTERS ROW (Exact Reference 1) */}
+        {/* 2. STAT COUNTERS ROW */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6 pt-4 border-b border-stone-200 pb-10 text-center md:text-left">
           <div className="col-span-2 md:col-span-1 flex items-center gap-2 text-xs text-stone-500 font-medium">
             <Sparkles className="w-4 h-4 text-[#c6a04a] shrink-0" />
-            <span>All the work we have done has been successfully completed</span>
+            <span>Passion för traditionell persisk matlagning sedan starten</span>
           </div>
 
           <div className="space-y-0.5">
             <div className="font-sans text-2xl sm:text-3xl font-bold text-stone-900">200+</div>
-            <div className="text-[11px] uppercase tracking-wider text-stone-500">VISITORS DAILY</div>
+            <div className="text-[11px] uppercase tracking-wider text-stone-500">DAGLIGA GÄSTER</div>
           </div>
 
           <div className="space-y-0.5">
             <div className="font-sans text-2xl sm:text-3xl font-bold text-stone-900">200+</div>
-            <div className="text-[11px] uppercase tracking-wider text-stone-500">DELIVERIES MONTHLY</div>
+            <div className="text-[11px] uppercase tracking-wider text-stone-500">LEVERANSER I MÅNADEN</div>
           </div>
 
           <div className="space-y-0.5">
             <div className="font-sans text-2xl sm:text-3xl font-bold text-stone-900">1000+</div>
-            <div className="text-[11px] uppercase tracking-wider text-stone-500">POSITIVE FEEDBACK</div>
+            <div className="text-[11px] uppercase tracking-wider text-stone-500">NÖJDA GÄSTER</div>
           </div>
 
           <div className="space-y-0.5">
             <div className="font-sans text-2xl sm:text-3xl font-bold text-stone-900">40+</div>
-            <div className="text-[11px] uppercase tracking-wider text-stone-500">AWARDS AND HONORS</div>
+            <div className="text-[11px] uppercase tracking-wider text-stone-500">UNIKA PERSISKA RÄTTER</div>
           </div>
         </div>
 
@@ -215,28 +216,28 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
       <section className="space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <h3 className="font-sans text-2xl sm:text-3xl font-bold uppercase tracking-tight text-stone-900">
-            DISHES MENU
+            VARMRÄTTER & GRYTOR
           </h3>
           <p className="text-xs text-stone-500 font-light leading-relaxed">
-            Appetizers tantalize your taste buds with their creativity and finesse. Perhaps you start with delicate marinades, featuring saffron and authentic stew atop golden rice.
+            Våra signaturrätter och traditionella persiska grytor tillagas långsamt från grunden med handplockat saffran, färska örter och finaste råvaror.
           </p>
           <div className="pt-2">
-            <h4 className="font-serif italic text-lg text-stone-800">Warm Dishes & Stews</h4>
+            <h4 className="font-serif italic text-lg text-stone-800">Klassiska Varmrätter</h4>
             <p className="text-[11px] text-stone-400">Traditionella persiska grytor långkokta till perfektion</p>
           </div>
         </div>
 
-        {/* 2-Column Dish Grid (Rectangular Photo + Title + Price + Orange Order Bag) */}
+        {/* 2-Column Dish Grid with Whole Uncropped Image */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
           {mainStews.map((dish) => (
-            <div key={dish.id} className="flex items-center justify-between gap-4 p-2 rounded-2xl hover:bg-[#FAF8F5] transition-colors group">
+            <div key={dish.id} className="flex items-center justify-between gap-4 p-2.5 rounded-2xl hover:bg-[#FAF8F5] transition-colors group">
               <div className="flex items-center gap-4">
-                {/* Rectangular Image */}
-                <div className="w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden bg-stone-100 shrink-0 shadow-xs">
+                {/* Full Uncropped Image */}
+                <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden bg-white border border-stone-200 shrink-0 shadow-xs p-1 flex items-center justify-center">
                   <img
                     src={dish.image}
                     alt={dish.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
 
@@ -245,7 +246,7 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
                   <h5 className="font-sans text-xs sm:text-sm font-bold text-stone-900 group-hover:text-[#c6a04a] transition-colors">
                     {dish.name}
                   </h5>
-                  <p className="text-[11px] text-stone-500 font-light line-clamp-1 max-w-[220px] sm:max-w-xs">
+                  <p className="text-[11px] text-stone-500 font-light line-clamp-2 max-w-[220px] sm:max-w-xs">
                     {dish.description}
                   </p>
                 </div>
@@ -270,29 +271,29 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. CATEGORY 2: CONSIDER FOOD PAIRINGS (CIRCULAR DISHES)                   */}
+      {/* 4. CATEGORY 2: TILLBEHÖR & MAZEH (FULL UNCROPPED IMAGES)                   */}
       {/* ========================================================================= */}
       <section className="space-y-10 pt-6">
         <div className="text-center space-y-1">
           <h4 className="font-serif text-xl sm:text-2xl font-bold text-stone-900">
-            Consider Food Pairings
+            Tillbehör, Mazeh & Sallader
           </h4>
           <p className="text-xs text-stone-500 font-light">
             Komplettera din måltid med traditionella röror, färska örtsallader och saffransdessert.
           </p>
         </div>
 
-        {/* 2-Column Grid with Circular Plated Dishes */}
+        {/* 2-Column Grid with Full Uncropped Dishes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
           {pairings.map((dish) => (
-            <div key={dish.id} className="flex items-center justify-between gap-4 p-2 rounded-2xl hover:bg-[#FAF8F5] transition-colors group">
+            <div key={dish.id} className="flex items-center justify-between gap-4 p-2.5 rounded-2xl hover:bg-[#FAF8F5] transition-colors group">
               <div className="flex items-center gap-4">
-                {/* Circular Dish Photo */}
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-stone-100 shrink-0 shadow-xs ring-2 ring-stone-200">
+                {/* Full Uncropped Image */}
+                <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden bg-white border border-stone-200 shrink-0 shadow-xs p-1 flex items-center justify-center">
                   <img
                     src={dish.image}
                     alt={dish.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
 
@@ -300,7 +301,7 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
                   <h5 className="font-sans text-xs sm:text-sm font-bold text-stone-900 group-hover:text-[#c6a04a] transition-colors">
                     {dish.name}
                   </h5>
-                  <p className="text-[11px] text-stone-500 font-light line-clamp-1 max-w-[220px] sm:max-w-xs">
+                  <p className="text-[11px] text-stone-500 font-light line-clamp-2 max-w-[220px] sm:max-w-xs">
                     {dish.description}
                   </p>
                 </div>
@@ -322,7 +323,7 @@ export const MenuLayoutLuxuryDishes: React.FC<MenuLayoutProps> = ({ onNavigate }
           ))}
         </div>
       </section>
-
+      </div>
     </div>
   );
 };
