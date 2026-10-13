@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Star, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ShoppingBag, Star, Sparkles } from 'lucide-react';
 
 interface MenuLayoutProps {
   onOpenBooking?: () => void;
@@ -60,25 +60,12 @@ const FOODY_DISHES: FoodyDish[] = [
 ];
 
 export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNavigate }) => {
-  const [startIndex, setStartIndex] = useState(0);
   const [addedItem, setAddedItem] = useState<string | null>(null);
-
-  const handlePrev = () => {
-    setStartIndex((prev) => (prev > 0 ? prev - 1 : FOODY_DISHES.length - 4));
-  };
-
-  const handleNext = () => {
-    setStartIndex((prev) => (prev + 4 < FOODY_DISHES.length ? prev + 1 : 0));
-  };
 
   const handleAddToCart = (name: string) => {
     setAddedItem(name);
     setTimeout(() => setAddedItem(null), 2000);
   };
-
-  const visibleDishes = FOODY_DISHES.slice(startIndex, startIndex + 4).concat(
-    FOODY_DISHES.slice(0, Math.max(0, 4 - (FOODY_DISHES.length - startIndex)))
-  ).slice(0, 4);
 
   return (
     <div className="w-full min-h-screen bg-[#F6F2EC] pt-24 sm:pt-28 pb-24 text-stone-900 animate-fadeIn relative overflow-hidden">
@@ -195,34 +182,16 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. BOTTOM INTERACTIVE DISH SLIDER                                         */}
+      {/* 2. ALLA RÄTTER — full static grid (no slider)                            */}
       {/* ========================================================================= */}
       <div className="pt-8 space-y-6">
-        <div className="flex items-center justify-between">
-          <h3 className="font-serif text-2xl font-bold text-stone-900 tracking-tight">
-            Populära Rätter Just Nu
-          </h3>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handlePrev}
-              className="w-8 h-8 rounded-full bg-stone-800 text-white flex items-center justify-center hover:bg-stone-900 transition-colors cursor-pointer shadow-xs"
-              aria-label="Previous dishes"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="w-8 h-8 rounded-full bg-[#E22A3A] text-white flex items-center justify-center hover:bg-[#c9202f] transition-colors cursor-pointer shadow-xs"
-              aria-label="Next dishes"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
+        <h3 className="font-serif text-2xl font-bold text-stone-900 tracking-tight">
+          Populära Rätter Just Nu
+        </h3>
 
-        {/* 4 Cards Grid with Whole Uncropped Images */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
-          {visibleDishes.map((dish) => (
+        {/* Full grid — all dishes visible at once */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+          {FOODY_DISHES.map((dish) => (
             <div
               key={dish.id}
               className="bg-white/90 backdrop-blur-md rounded-3xl p-4 border border-stone-200 shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between group"
@@ -271,7 +240,7 @@ export const MenuLayoutFoody: React.FC<MenuLayoutProps> = ({ onOpenBooking, onNa
           ))}
         </div>
       </div>
-      </div>
+    </div>
     </div>
   );
 };
