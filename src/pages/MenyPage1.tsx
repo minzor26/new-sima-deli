@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuLayoutFoody } from '../components/menu/MenuLayoutFoody';
+import { MenuLayoutClassic } from '../components/menu/MenuLayoutClassic';
 
 interface MenyPageProps {
   onOpenBooking: () => void;
@@ -9,7 +9,8 @@ interface MenyPageProps {
 export const MenyPage1: React.FC<MenyPageProps> = ({ onOpenBooking, onNavigate }) => {
   return (
     <main className="w-full min-h-screen">
-      <MenuLayoutFoody onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
+      <MenuLayoutClassic onOpenBooking={onOpenBooking} onNavigate={onNavigate} />
     </main>
   );
 };
+

@@ -15,12 +15,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
 
   const MENU_DROPDOWN_LINKS = [
-    { path: '/meny-1/', title: 'Meny 1', desc: 'Foody Experience' },
-    { path: '/meny-2/', title: 'Meny 2', desc: 'The Greatest Table' },
-    { path: '/meny-3/', title: 'Meny 3', desc: 'Signature Vit Lyx' },
-    { path: '/meny-4/', title: 'Meny 4', desc: 'Modular Cards' },
-    { path: '/meny-5/', title: 'Meny 5', desc: 'Selective Images' },
-    { path: '/meny-8/', title: 'Meny 6', desc: 'Midnight & Gold' },
+    { path: '/meny-1/', title: 'Meny 1', desc: 'Sima Classic' },
+    { path: '/meny-2/', title: 'Meny 2', desc: 'Modular Cards' },
+    { path: '/meny-3/', title: 'Meny 3', desc: 'Selective Images' },
+    { path: '/meny-4/', title: 'Meny 4', desc: 'Midnight & Gold' },
   ];
 
   useEffect(() => {
@@ -122,7 +120,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
                     {menuDropdownOpen && (
                       <div className="absolute top-full left-0 w-72 bg-[#FAF7F2] rounded-2xl shadow-xl border border-[#CDEBF2] p-2 mt-1 z-50 animate-fadeIn">
                         <div className="text-[11px] font-semibold uppercase tracking-wider text-[#1E5F6E] bg-[#CDEBF2]/50 px-3 py-1.5 rounded-lg mb-1">
-                          Välj Menysida (8 Olika Sidor)
+                          Välj Menysida ({MENU_DROPDOWN_LINKS.length} Olika Sidor)
                         </div>
                         <div className="space-y-0.5">
                           {MENU_DROPDOWN_LINKS.map((item) => {
