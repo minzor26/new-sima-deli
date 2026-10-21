@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
   const MENU_DROPDOWN_LINKS = [
     { path: '/meny-1/', title: 'Meny 1', desc: 'Sima Classic' },
     { path: '/meny-2/', title: 'Meny 2', desc: 'Modular Cards' },
-    { path: '/meny-3/', title: 'Meny 3', desc: 'Persian Soul Food' },
+    { path: '/meny-3/', title: 'Meny 3', desc: 'Persisk Deli & Kök' },
   ];
 
   useEffect(() => {

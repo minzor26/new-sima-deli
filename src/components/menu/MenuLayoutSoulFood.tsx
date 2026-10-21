@@ -276,14 +276,14 @@ export const MenuLayoutSoulFood: React.FC<MenuLayoutProps> = ({ onOpenBooking, o
                 <span>{statusText}</span>
               </div>
 
-              {/* Display Headline */}
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-[4.5rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#231A2B]">
-                Persian <span className="text-[#A3203B] italic font-normal">Soul Food</span> på Östermalm
+              {/* Display Headline from our website */}
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#231A2B]">
+                Persisk Deli & Restaurang <span className="text-[#A3203B] italic font-serif font-normal block sm:inline">i hjärtat av Stockholm</span>
               </h1>
 
-              {/* Lede Text */}
-              <p className="text-base sm:text-lg text-[#655B6B] leading-relaxed max-w-xl font-normal">
-                Mammas persiska mat, lagad av mor och dotter med färska råvaror. Ät här eller ta med.
+              {/* Story / Description from our website */}
+              <p className="text-base sm:text-lg text-[#57534E] leading-relaxed max-w-xl font-normal">
+                Välkommen in och upplev mammas persiska mat i en varm och hemtrevlig atmosfär. Ät här eller take-away.
               </p>
 
               {/* Action Buttons */}
@@ -293,7 +293,7 @@ export const MenuLayoutSoulFood: React.FC<MenuLayoutProps> = ({ onOpenBooking, o
                   onClick={(e) => handleNavigateClick(e, '#meny')}
                   className="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full bg-[#A3203B] text-white font-semibold text-[15px] hover:brightness-110 transition-all border-2 border-[#A3203B] shadow-xs cursor-pointer"
                 >
-                  Se menyn
+                  Se vår meny
                 </a>
                 <button
                   type="button"
@@ -536,10 +536,10 @@ export const MenuLayoutSoulFood: React.FC<MenuLayoutProps> = ({ onOpenBooking, o
             
             <div className="space-y-4 text-sm sm:text-base text-[#655B6B] leading-relaxed">
               <p>
-                Mitt på Östermalm hittar du Sima Deli. Vi är kända för en genuin persisk matupplevelse med färska råvaror och passion. Vi kallar det <strong className="text-[#231A2B] font-bold">Persian Soul Food</strong>.
+                Mitt på Östermalm hittar ni Sima Deli, persisk mat som lagas av två generationer mor och dotter med en gemensam passion för mat från det persiska köket.
               </p>
               <p>
-                Välkommen in och upplev mammas persiska mat i en varm och hemtrevlig atmosfär. Ät här eller ta med.
+                Välkommen in och upplev mammas persiska mat i en varm och hemtrevlig atmosfär. Ät här eller take-away.
               </p>
             </div>
           </div>
