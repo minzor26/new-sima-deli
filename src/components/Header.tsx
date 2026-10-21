@@ -19,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate, onOpenB
     { path: '/meny-2/', title: 'Meny 2', desc: 'Modular Cards' },
     { path: '/meny-3/', title: 'Meny 3', desc: 'Selective Images' },
     { path: '/meny-4/', title: 'Meny 4', desc: 'Midnight & Gold' },
+    { path: '/meny-5/', title: 'Meny 5', desc: 'Persian Soul Food' },
   ];
 
   useEffect(() => {
