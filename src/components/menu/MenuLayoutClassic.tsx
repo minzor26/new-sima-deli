@@ -103,8 +103,6 @@ const siteLinks: [string, string][] = [
   ['Kontakt', '/kontakt/'],
 ];
 
-const bookingUrl = 'https://www.simadeli.com/?page_id=1110';
-
 interface MenuItemProps {
   item: MenuItemData;
 }
@@ -143,7 +141,6 @@ interface MenuLayoutClassicProps {
 
 export const MenuLayoutClassic: React.FC<MenuLayoutClassicProps> = ({ onOpenBooking, onNavigate }) => {
   const [active, setActive] = useState(menu[0].id);
-  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     // Keep the category highlight in step with scrolling, including the final section.
@@ -184,15 +181,6 @@ export const MenuLayoutClassic: React.FC<MenuLayoutClassicProps> = ({ onOpenBook
     };
   }, []);
 
-  useEffect(() => {
-    if (!navOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setNavOpen(false);
-    };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
-  }, [navOpen]);
-
   const handleBookingClick = (e: React.MouseEvent) => {
     if (onOpenBooking) {
       e.preventDefault();
@@ -204,7 +192,6 @@ export const MenuLayoutClassic: React.FC<MenuLayoutClassicProps> = ({ onOpenBook
     if (href.startsWith('/') && onNavigate) {
       e.preventDefault();
       onNavigate(href);
-      setNavOpen(false);
     }
   };
 
@@ -222,7 +209,6 @@ export const MenuLayoutClassic: React.FC<MenuLayoutClassicProps> = ({ onOpenBook
 
       <a className="skip-link" href="#menu-content">Till menyn</a>
 
-
       <main>
         {/* HERO TITLE SECTION */}
         <div className="mx-auto max-w-[1240px] px-5 pb-10 pt-10 sm:px-10 sm:pb-14 sm:pt-14">
@@ -234,12 +220,24 @@ export const MenuLayoutClassic: React.FC<MenuLayoutClassicProps> = ({ onOpenBook
             <h1 className="font-serif text-[clamp(3.5rem,8vw,6.5rem)] leading-none tracking-[-0.06em] text-[#1C1917]">
               Meny<span className="text-[#c6a149]">.</span>
             </h1>
-            <a
-              href="#varma"
-              className="pb-2 text-sm text-[#8B7355] hover:text-[#1C1917] transition-colors font-medium"
-            >
-              VARMA PERSISKA RÄTTER <span aria-hidden="true" className="ml-4">↓</span>
-            </a>
+            <div className="flex items-center gap-4 pb-2">
+              {onOpenBooking && (
+                <button
+                  type="button"
+                  onClick={handleBookingClick}
+                  className="border border-[#c6a149] px-4 py-2 text-xs font-semibold tracking-wide transition-colors hover:bg-[#cdecfc] text-[#1C1917] sm:px-6 rounded-md cursor-pointer flex items-center gap-1.5 shadow-2xs"
+                >
+                  <span>Boka Bord</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+              )}
+              <a
+                href="#varma"
+                className="text-sm text-[#8B7355] hover:text-[#1C1917] transition-colors font-medium"
+              >
+                VARMA PERSISKA RÄTTER <span aria-hidden="true" className="ml-4">↓</span>
+              </a>
+            </div>
           </div>
         </div>
 
