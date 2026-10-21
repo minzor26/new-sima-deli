@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { RESTAURANT_INFO, DELIVERY_PARTNERS } from '../../data/siteData';
 
 interface MenuLayoutProps {
   onOpenBooking?: () => void;
@@ -7,298 +6,108 @@ interface MenuLayoutProps {
 }
 
 interface DishItem {
-  id?: string;
   name: string;
-  price: string;
-  smallPrice?: string;
+  price: string | number;
+  smallPrice?: string | number;
   desc?: string;
   tag?: string;
   isWarningTag?: boolean;
 }
 
-interface MenuTabCategory {
+interface MenuCategoryTab {
   id: string;
   label: string;
   note?: string;
   dishes: DishItem[];
 }
 
-// 100% Original Sima Deli menu data & verified Stockholm prices from siteData.ts
-const ORIGINAL_MENU_CATEGORIES: MenuTabCategory[] = [
+const MENU_CATEGORIES: MenuCategoryTab[] = [
   {
     id: 'varma',
     label: 'Varma rätter',
-    note: 'Alla grytor och varma rätter serveras med saffransris.',
+    note: 'Rätterna serveras med saffransris.',
     dishes: [
-      {
-        id: 'zereshk-polo',
-        name: 'Zereshkpolo ba Morgh',
-        price: '189 kr',
-        desc: 'Marinerad kycklingfilé i tomatsås, serveras med saffranris, zereshk (berberis bär) och pistagenötter.'
-      },
-      {
-        id: 'gheymeh',
-        name: 'Gheymeh',
-        price: '189 kr',
-        desc: 'Köttgryta med gula linser, körsbärstomater, torkad lime, serveras med saffran ris.'
-      },
-      {
-        id: 'veg-gheymeh',
-        name: 'Vegan Gheymeh Bademjan',
-        price: '189 kr',
-        desc: 'Gryta med gula linser, körsbärstomater, torkad lime och ugnsrostade auberginer serveras med saffran ris.',
-        tag: 'Vegan'
-      },
-      {
-        id: 'ghormeh-sabzi',
-        name: 'Ghormeh-Sabzi',
-        price: '189 kr',
-        desc: 'Köttgryta med örter, bönor och torkade lime, serveras med saffran ris.'
-      },
-      {
-        id: 'veg-ghormeh-sabzi',
-        name: 'Veg. Ghormeh-Sabzi',
-        price: '189 kr',
-        desc: 'Gryta med örter, bönor och torkade lime, serveras med saffran ris.',
-        tag: 'Vegan'
-      },
-      {
-        id: 'baghali-polo',
-        name: 'Baghali-Polo Mahiche',
-        price: '259 kr',
-        desc: 'Lång-kokt lammlägg serveras med saffranris med bondbönor och dill.'
-      },
-      {
-        id: 'tahchin',
-        name: 'Tahchin',
-        price: '189 kr',
-        desc: 'Marinerat kyckling i yoghurt och ägg tillagad tillsammans som en “Rice-Cake” med saffran ris, toppad med zereshk (berberis bär).',
-        tag: 'Endast lördagar',
-        isWarningTag: true
-      },
-      {
-        id: 'zaboon',
-        name: 'Zaboon',
-        price: '229 kr',
-        desc: 'Mörstekt ox-tunga tillagad i fyllig persisk kryddbuljong, serveras med färsk bröd, citronklyftor, rödlök och Torshi.'
-      },
-      {
-        id: 'ash-reshte',
-        name: 'Ash Reshte',
-        price: '119 kr',
-        desc: 'Vegetarisk ört soppa med bönor och nudlar.',
-        tag: 'Vegetarisk'
-      },
-      {
-        id: 'abgoosht',
-        name: 'Abgoosht',
-        price: '249 kr',
-        desc: 'Traditionell persisk köttsoppa/gryta med bönor och tomat, serveras med Sangak bröd, Doogh, färska örter och Torshi.',
-        tag: 'Endast söndagar',
-        isWarningTag: true
-      }
+      { name: 'Zereshk-Polo ba Morgh', price: '179', desc: 'Marinerad kycklingfilé i tomatsås, saffransris och zereshk (berberisbär).' },
+      { name: 'Gheymeh', price: '179', desc: 'Köttgryta med gula linser, körsbärstomater och torkad lime.' },
+      { name: 'Veg. Gheymeh Bademjan', price: '179', desc: 'Gryta med gula linser, körsbärstomater, torkad lime och ugnsrostade auberginer.', tag: 'Vegan' },
+      { name: 'Ghormeh-Sabzi', price: '179', desc: 'Köttgryta med örter, bönor och torkad lime.' },
+      { name: 'Veg. Ghormeh-Sabzi', price: '179', desc: 'Gryta med örter, bönor och torkad lime.', tag: 'Vegan' },
+      { name: 'Baghali-Polo Mahiche', price: '239', desc: 'Långkokt lammlägg med saffransris, bondbönor och dill.' },
+      { name: 'Tahchin', price: '179', desc: 'Kyckling marinerad i yoghurt och ägg, tillagad som en rice-cake med saffransris och zereshk.', tag: 'Endast lördagar', isWarningTag: true },
+      { name: 'Ash Reshte', price: '99', desc: 'Vegetarisk örtsoppa med bönor och nudlar.' },
+      { name: 'Abgoosht', price: '229', desc: 'Traditionell köttsoppa med bönor och tomat, serveras med Sangak-bröd och färska örter.' }
     ]
   },
   {
     id: 'mazeh',
     label: 'Mazeh',
-    note: 'Mazeh-tallrik: Kombinera 3 valfria Mazeh från deli disken för 189 kr. Kan även beställas separat som liten eller stor.',
+    note: 'Mazeh-tallrik: välj 3 valfria mazeh från deli-disken för 189 kr. Köp dem också var för sig, liten eller stor.',
     dishes: [
-      {
-        name: 'Morgh',
-        price: 'Tallrik',
-        desc: 'Ugnsgrillad mör kycklingfilé.'
-      },
-      {
-        name: 'Olovieh',
-        price: '179 kr',
-        smallPrice: '95 kr',
-        desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.'
-      },
-      {
-        name: 'Kashke-Bademjan',
-        price: '179 kr',
-        smallPrice: '95 kr',
-        desc: 'Ugnsrostade auberginer i röra med matlagningsyoghurt, rostad lök, färsk vitlök, valnötter och mynta.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Hummus',
-        price: '169 kr',
-        smallPrice: '89 kr',
-        desc: 'Kikärter, tahini, olivolja, färsk vitlök och citronjuice.',
-        tag: 'Vegan'
-      },
-      {
-        name: 'Koo-Koo',
-        price: '169 kr',
-        smallPrice: '89 kr',
-        desc: 'Vegetarisk ört-omelett med Zereshk (berberis bär), örter och vitlök.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Baghali-Polo',
-        price: 'Tallrik',
-        desc: 'Saffranris med dill och bondbönor.',
-        tag: 'Vegetarisk'
-      }
+      { name: 'Morgh', price: 'Tallrik', desc: 'Ugnsgrillad kycklingfilé.' },
+      { name: 'Olovieh', price: '179', smallPrice: '95', desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.' },
+      { name: 'Kashke-Bademjan', price: '179', smallPrice: '95', desc: 'Ugnsrostade auberginer i röra med matlagningsyoghurt, rostad lök, vitlök, valnötter och mynta.', tag: 'Vegetarisk' },
+      { name: 'Hummus', price: '159', smallPrice: '79', desc: 'Kikärter, tahini, olivolja, färsk vitlök och citronjuice.', tag: 'Vegan' },
+      { name: 'Koo-Koo', price: '169', smallPrice: '89', desc: 'Örtomelett med zereshk och vitlök.', tag: 'Vegetarisk' },
+      { name: 'Baghali-Polo', price: 'Tallrik', desc: 'Saffransris med dill och bondbönor.', tag: 'Vegetarisk' }
     ]
   },
   {
     id: 'sallad',
-    label: 'Sallader & Wraps',
+    label: 'Sallader och wraps',
     note: 'Alla sallader serveras med blandsallad, gurka, tomat och säsongens grönsaker.',
     dishes: [
-      {
-        name: 'Grillad Kycklingfilé Sallad',
-        price: '159 kr',
-        desc: 'Serveras med blandsallad, gurka och tomat. Välj mellan Fetaost och avokado eller Chevré och rödbetor.'
-      },
-      {
-        name: 'Grillad Halloumi Sallad',
-        price: '169 kr',
-        desc: 'Ugnsrostad aubergine, avokado crème, säsongens frukt och krispig halloumi.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Panir Sabzi Wrap',
-        price: '119 kr',
-        desc: 'Fetaost, valnötter, färsk mynta, krispig gurka och solmogna tomater.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Koo-Koo Wrap',
-        price: '119 kr',
-        desc: 'Ört omelett med Zereshk (berberis bär), sallad, tomat, saltgurka.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Morgh Wrap',
-        price: '119 kr',
-        desc: 'Kyckling, bulgur, krämig hummus, pickles, tomat, färsk persilja.'
-      },
-      {
-        name: 'Olovieh Wrap',
-        price: '119 kr',
-        desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och krispig saltgurka.'
-      }
+      { name: 'Grillad kycklingfilé', price: '159', desc: 'Med fetaost och avokado, eller chèvre och rödbetor.' },
+      { name: 'Grillad halloumi', price: '169', desc: 'Med ugnsrostad aubergine, avokadocrème och säsongens frukt.' },
+      { name: 'Panir Sabzi wrap', price: '109', desc: 'Fetaost, valnötter, mynta, gurka och tomat.' },
+      { name: 'Koo-Koo wrap', price: '109', desc: 'Örtomelett med zereshk, sallad, tomat och saltgurka.' },
+      { name: 'Morgh wrap', price: '109', desc: 'Kyckling, bulgur, hummus, pickles, tomat och persilja.' },
+      { name: 'Olovieh wrap', price: '109', desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.' }
     ]
   },
   {
     id: 'frukost',
-    label: 'Persisk Frukost',
-    note: 'Färskt traditionellt Barbari-bröd ingår till alla frukosträtter. Extra bröd 20 kr.',
+    label: 'Frukost',
+    note: 'Barbari-bröd ingår i alla frukosträtter. Extra bröd 20 kr.',
     dishes: [
-      {
-        name: 'Nimro',
-        price: '89 kr',
-        desc: 'Stekta ägg med färskt barbari-bröd.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Noon Panir',
-        price: '89 kr',
-        desc: 'Färskt barbari-bröd med krämig fetaost, gurka och tomater.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Persisk Omelett',
-        price: '139 kr',
-        desc: 'Ägg tillagade med färska tomater, persiska kryddor och barbari bröd.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Sobhane Tallrik',
-        price: '149 kr',
-        desc: 'Smör, mascarpone, marmelad/honung, fetaost, gurka, tomater, färska örter, halvardeh, oliver och valnötter.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Halim',
-        price: '119 kr',
-        desc: 'Traditionell persisk frukostgröt (innehåller kött, vete och smör).'
-      },
-      {
-        name: 'Extra Barbari Bröd',
-        price: '20 kr',
-        desc: 'Nybakat traditionellt persiskt sesamstrött bröd.',
-        tag: 'Vegetarisk'
-      }
+      { name: 'Nimro', price: '79', desc: 'Stekta ägg med barbari-bröd.' },
+      { name: 'Noon Panir', price: '89', desc: 'Bröd, fetaost, gurka och tomat.' },
+      { name: 'Persisk omelett', price: '139', desc: 'Ägg med färska tomater och barbari-bröd.' },
+      { name: 'Sobhane-tallrik', price: '149', desc: 'Smör, mascarpone, marmelad eller honung, fetaost, gurka, tomater, färska örter, halvardeh, oliver och valnötter.' },
+      { name: 'Halim', price: '109', desc: 'Persisk gröt. Innehåller kött, vete och smör.' }
     ]
   },
   {
     id: 'sott',
-    label: 'Sött & Tillbehör',
-    note: 'Traditionella persiska desserter och småplock. Baklava och shirini innehåller smör och nötter.',
+    label: 'Sött och tillbehör',
+    note: 'Baklava och shirini innehåller smör och nötter.',
     dishes: [
-      {
-        name: 'Sholezard',
-        price: '59 kr',
-        desc: 'Persisk rispudding smaksatt med saffran, kanel, pistagenötter, riven mandel och rosenblad.',
-        tag: 'Vegan'
-      },
-      {
-        name: 'Baklava',
-        price: '39 kr',
-        desc: 'Klassisk krispig baklava med pistage och valnötter.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Shirini',
-        price: '39 kr',
-        desc: 'Persiska hembakade kakor (innehåller smör och nötter).',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Torshi',
-        price: '59 kr',
-        desc: 'Sima Deli’s egna inlagda persiska grönsaker.',
-        tag: 'Vegan'
-      },
-      {
-        name: 'Mastokhiar',
-        price: '39 kr',
-        desc: 'Silkeslen yoghurt blandad med riven gurka och torkad mynta.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Mastmoosir',
-        price: '39 kr',
-        desc: 'Traditionell persisk yoghurt med vildlök och mynta.',
-        tag: 'Vegetarisk'
-      },
-      {
-        name: 'Zeytoon Parvardeh',
-        price: '49 kr',
-        desc: 'Oliver marinerade med granatäpplesirap, vitlök, valnötter, mynta och örter.',
-        tag: 'Vegan'
-      },
-      {
-        name: 'Shirazi-Sallad',
-        price: '39 kr',
-        desc: 'Fint tärnad tomat, gurka, rödlök, färskpressad citronjuice och extra jungfruolivolja.',
-        tag: 'Vegan'
-      }
+      { name: 'Sholeh Zard', price: '59', desc: 'Rispudding med saffran, kanel och riven mandel.', tag: 'Vegan' },
+      { name: 'Baklava', price: '29', desc: 'Innehåller smör och nötter.' },
+      { name: 'Shirini', price: '29', desc: 'Persiska kakor. Innehåller smör och nötter.' },
+      { name: 'Torshi', price: '59', desc: 'Sima Delis egna inlagda grönsaker.' },
+      { name: 'Mastokhiar', price: '39', desc: 'Yoghurt med gurka och mynta.' },
+      { name: 'Mastomoosir', price: '39', desc: 'Yoghurt med vildlök.' },
+      { name: 'Zeytoon Parvardeh', price: '49', desc: 'Oliver marinerade med granatäpple, vitlök, valnötter, mynta och örter.' },
+      { name: 'Salad Shirazi', price: '39', desc: 'Tomat, gurka, rödlök, färskpressad citronjuice och olivolja.' }
     ]
   },
   {
     id: 'dryck',
     label: 'Drycker',
-    note: 'Varma persiska tespecialiteter, kaffe och kylda drycker.',
     dishes: [
-      { name: 'Espresso', price: '35 kr' },
-      { name: 'Dubbel Espresso', price: '39 kr' },
-      { name: 'Cappuccino', price: '45 kr' },
-      { name: 'Café Latte', price: '45 kr' },
-      { name: 'Kaffe', price: '39 kr' },
-      { name: 'Varm Choklad', price: '39 kr' },
-      { name: 'Chai ghand-pahlu', price: '39 kr', desc: 'Traditionellt svart bryggt te med kardemumma.' },
-      { name: 'Chai Nabat', price: '49 kr', desc: 'Svart persiskt te serverat med saffranssockerklubba.' },
-      { name: 'Ört-te', price: '49 kr', desc: 'Utvalt ört-te serverat med sockerklubba.' },
-      { name: 'Doogh', price: '39 kr', desc: 'Traditionell svalkande persisk yoghurtdryck med torkad mynta.' },
-      { name: 'Granatäpple juice', price: '39 kr' },
-      { name: 'Apelsin Juice', price: '39 kr' },
-      { name: 'Läsk', price: '39 kr' }
+      { name: 'Espresso', price: '29' },
+      { name: 'Dubbel espresso', price: '39' },
+      { name: 'Cappuccino', price: '39' },
+      { name: 'Café latte', price: '39' },
+      { name: 'Varm choklad', price: '39' },
+      { name: 'Kaffe', price: '39' },
+      { name: 'Chai, ghand-pahlu', price: '39' },
+      { name: 'Chai Nabat', price: '49', desc: 'Te med sockerklubba.' },
+      { name: 'Ört-te', price: '49', desc: 'Med sockerklubba.' },
+      { name: 'Doogh', price: '39', desc: 'Innehåller yoghurt och mynta.' },
+      { name: 'Läsk', price: '39' },
+      { name: 'Granatäppeljuice', price: '39' },
+      { name: 'Apelsinjuice', price: '39' }
     ]
   }
 ];
@@ -364,7 +173,7 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
     if (onOpenBooking) {
       onOpenBooking();
     } else {
-      window.open(RESTAURANT_INFO.bookingDirectUrl, '_blank');
+      window.open('https://www.simadeli.com/booking/', '_blank');
     }
   };
 
@@ -385,11 +194,11 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
     }
   };
 
-  const activeCategory = ORIGINAL_MENU_CATEGORIES.find((c) => c.id === activeTab) || ORIGINAL_MENU_CATEGORIES[0];
+  const activeCategory = MENU_CATEGORIES.find((c) => c.id === activeTab) || MENU_CATEGORIES[0];
 
   return (
     <div className="sima-deli-classic w-full min-h-screen text-[#231A2B] bg-[#F5F7F4] pt-20 sm:pt-24 antialiased selection:bg-[#E7A21B]/30 selection:text-[#231A2B]">
-      {/* SCOPED STYLES & TYPOGRAPHY TO MATCH REFERENCE */}
+      {/* SCOPED STYLES & FONTS */}
       <style>{`
         .sima-deli-classic {
           --bg: #F5F7F4;
@@ -459,7 +268,7 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
 
               {/* Lede Text */}
               <p className="text-base sm:text-lg text-[#655B6B] leading-relaxed max-w-xl font-normal">
-                {RESTAURANT_INFO.storySnippet} Ät här eller ta med.
+                Mammas persiska mat, lagad av mor och dotter med färska råvaror. Ät här eller ta med.
               </p>
 
               {/* Action Buttons */}
@@ -467,7 +276,7 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
                 <a
                   href="#meny"
                   onClick={(e) => handleNavigateClick(e, '#meny')}
-                  className="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full bg-[#A3203B] text-white font-semibold text-[15px] hover:brightness-110 transition-all border-2 border-[#A3203B] shadow-xs cursor-pointer"
+                  className="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full bg-[#A3203B] text-white font-semibold text-[15px] hover:brightness-110 transition-all border-2 border-[#A3203B] shadow-xs"
                 >
                   Se menyn
                 </a>
@@ -625,13 +434,13 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
               Det vi lagar
             </h2>
             <p className="text-sm sm:text-base text-[#655B6B]">
-              Persiska rätter lagade från grunden med äkta råvaror och kärlek.
+              Persiska rätter lagade från grunden. Alla priser i kronor.
             </p>
           </div>
 
           {/* Interactive Category Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto py-5 no-scrollbar border-b border-[#DCE1DC] mt-4" role="tablist">
-            {ORIGINAL_MENU_CATEGORIES.map((cat) => {
+            {MENU_CATEGORIES.map((cat) => {
               const isSelected = activeTab === cat.id;
               return (
                 <button
@@ -723,10 +532,10 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
             
             <div className="space-y-4 text-sm sm:text-base text-[#655B6B] leading-relaxed">
               <p>
-                Mitt på Östermalm på {RESTAURANT_INFO.address.street} hittar du Sima Deli. Vi är kända för en genuin persisk matupplevelse med färska råvaror och passion. Vi kallar det <strong className="text-[#231A2B] font-bold">Persian Soul Food</strong>.
+                Mitt på Östermalm hittar du Sima Deli. Vi är kända för en genuin persisk matupplevelse med färska råvaror och passion. Vi kallar det <strong className="text-[#231A2B] font-bold">Persian Soul Food</strong>.
               </p>
               <p>
-                {RESTAURANT_INFO.storySnippet}
+                Välkommen in och upplev mammas persiska mat i en varm och hemtrevlig atmosfär. Ät här eller ta med.
               </p>
             </div>
           </div>
@@ -751,13 +560,13 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
                 Vi tar emot beställningar från företag och privatpersoner. Du kan också abonnera på lokal.
               </p>
               <p>
-                Berätta vad du planerar så hjälper vi dig. Mejla oss på <strong className="text-[#231A2B] font-bold">{RESTAURANT_INFO.email}</strong> eller ring <strong className="text-[#231A2B] font-bold">{RESTAURANT_INFO.phone}</strong>.
+                Berätta vad du planerar så hjälper vi dig. Mejla oss på <strong className="text-[#231A2B] font-bold">info@simadeli.com</strong>.
               </p>
               <div>
                 <a
                   href="/catering/"
                   onClick={(e) => handleNavigateClick(e, '/catering/')}
-                  className="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full bg-[#A3203B] text-white font-semibold text-sm hover:brightness-110 transition-all border-2 border-[#A3203B] cursor-pointer"
+                  className="inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-full bg-[#A3203B] text-white font-semibold text-sm hover:brightness-110 transition-all border-2 border-[#A3203B]"
                 >
                   Se cateringsidan
                 </a>
@@ -784,7 +593,7 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
             <a
               href="/sima-deli-matlador/"
               onClick={(e) => handleNavigateClick(e, '/sima-deli-matlador/')}
-              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-[#F5F7F4] hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all cursor-pointer"
+              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-[#F5F7F4] hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all"
             >
               <span>Matlådor</span>
               <span className="text-[#A3203B]">→</span>
@@ -792,7 +601,7 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
             <a
               href="/subscription/"
               onClick={(e) => handleNavigateClick(e, '/subscription/')}
-              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-[#F5F7F4] hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all cursor-pointer"
+              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-[#F5F7F4] hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all"
             >
               <span>Prenumeration</span>
               <span className="text-[#A3203B]">→</span>
@@ -815,23 +624,41 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7">
-            {DELIVERY_PARTNERS.map((partner) => (
-              <a
-                key={partner.id}
-                href={partner.url}
-                target={partner.isInternal ? '_self' : '_blank'}
-                rel={partner.isInternal ? undefined : 'noopener noreferrer'}
-                onClick={(e) => {
-                  if (partner.isInternal) {
-                    handleNavigateClick(e, partner.url);
-                  }
-                }}
-                className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-white hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all cursor-pointer"
-              >
-                <span>{partner.name}</span>
-                <span className="text-[#A3203B]">→</span>
-              </a>
-            ))}
+            <a
+              href="https://www.ubereats.com/se/stockholm/food-delivery/sima-deli/pBEYZ_HZRgWyxgSeqmf14Q"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-white hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all"
+            >
+              <span>Uber Eats</span>
+              <span className="text-[#A3203B]">→</span>
+            </a>
+            <a
+              href="https://www.foodora.se/restaurant/s5hz/sima-deli"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-white hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all"
+            >
+              <span>Foodora</span>
+              <span className="text-[#A3203B]">→</span>
+            </a>
+            <a
+              href="https://wolt.com/en/swe/stockholm/restaurant/sima-deli"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-white hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all"
+            >
+              <span>Wolt</span>
+              <span className="text-[#A3203B]">→</span>
+            </a>
+            <a
+              href="/sima-express/"
+              onClick={(e) => handleNavigateClick(e, '/sima-express/')}
+              className="flex justify-between items-center p-4 sm:p-5 rounded-2xl border border-[#DCE1DC] bg-white hover:border-[#A3203B] hover:text-[#A3203B] font-semibold text-sm transition-all"
+            >
+              <span>Sima Express</span>
+              <span className="text-[#A3203B]">→</span>
+            </a>
           </div>
         </div>
       </section>
@@ -854,16 +681,14 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
                   Adress
                 </h3>
                 <p className="text-sm text-[#655B6B] leading-relaxed">
-                  {RESTAURANT_INFO.name}<br />
-                  {RESTAURANT_INFO.address.street}<br />
-                  {RESTAURANT_INFO.address.postalCode} {RESTAURANT_INFO.address.city}
+                  Sima Deli<br />
+                  Valhallavägen 120<br />
+                  114 41 Stockholm
                 </p>
               </div>
               <div className="mt-6">
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    `${RESTAURANT_INFO.name} ${RESTAURANT_INFO.address.street} ${RESTAURANT_INFO.address.city}`
-                  )}`}
+                  href="https://www.google.com/maps/search/?api=1&query=Sima+Deli+Valhallav%C3%A4gen+120+Stockholm"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-full border border-[#231A2B] text-xs font-semibold text-[#231A2B] hover:bg-[#EAF1EE] transition-all"
@@ -880,13 +705,13 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
                   Telefon och e-post
                 </h3>
                 <p className="text-sm text-[#655B6B] leading-relaxed">
-                  <a href={`tel:${RESTAURANT_INFO.phoneRaw}`} className="hover:underline">{RESTAURANT_INFO.phone}</a><br />
-                  <a href={`mailto:${RESTAURANT_INFO.email}`} className="hover:underline">{RESTAURANT_INFO.email}</a>
+                  08-660 36 35<br />
+                  info@simadeli.com
                 </p>
               </div>
               <div className="flex gap-2.5 mt-6">
                 <a
-                  href={RESTAURANT_INFO.socials.instagram}
+                  href="https://www.instagram.com/sima_deli/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-full border border-[#231A2B] text-xs font-semibold text-[#231A2B] hover:bg-[#EAF1EE] transition-all"
@@ -894,7 +719,7 @@ export const MenuLayoutClassic: React.FC<MenuLayoutProps> = ({ onOpenBooking, on
                   Instagram
                 </a>
                 <a
-                  href={RESTAURANT_INFO.socials.facebook}
+                  href="https://www.facebook.com/Simadeli/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-full border border-[#231A2B] text-xs font-semibold text-[#231A2B] hover:bg-[#EAF1EE] transition-all"
