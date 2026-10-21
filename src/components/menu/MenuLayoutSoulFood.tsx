@@ -25,89 +25,104 @@ const MENU_CATEGORIES: MenuCategoryTab[] = [
   {
     id: 'varma',
     label: 'Varma rätter',
-    note: 'Rätterna serveras med saffransris.',
+    note: 'Serveras med saffransris, berberisbär (zereshk) eller enligt beskrivning.',
     dishes: [
-      { name: 'Zereshk-Polo ba Morgh', price: '179', desc: 'Marinerad kycklingfilé i tomatsås, saffransris och zereshk (berberisbär).' },
-      { name: 'Gheymeh', price: '179', desc: 'Köttgryta med gula linser, körsbärstomater och torkad lime.' },
-      { name: 'Veg. Gheymeh Bademjan', price: '179', desc: 'Gryta med gula linser, körsbärstomater, torkad lime och ugnsrostade auberginer.', tag: 'Vegan' },
-      { name: 'Ghormeh-Sabzi', price: '179', desc: 'Köttgryta med örter, bönor och torkad lime.' },
-      { name: 'Veg. Ghormeh-Sabzi', price: '179', desc: 'Gryta med örter, bönor och torkad lime.', tag: 'Vegan' },
-      { name: 'Baghali-Polo Mahiche', price: '239', desc: 'Långkokt lammlägg med saffransris, bondbönor och dill.' },
-      { name: 'Tahchin', price: '179', desc: 'Kyckling marinerad i yoghurt och ägg, tillagad som en rice-cake med saffransris och zereshk.', tag: 'Endast lördagar', isWarningTag: true },
-      { name: 'Ash Reshte', price: '99', desc: 'Vegetarisk örtsoppa med bönor och nudlar.' },
-      { name: 'Abgoosht', price: '229', desc: 'Traditionell köttsoppa med bönor och tomat, serveras med Sangak-bröd och färska örter.' }
+      { name: 'Zereshk-Polo ba Morgh', price: '189 kr', desc: 'Marinerad kycklingfilé i tomatsås, serveras med saffransris och zereshk (berberisbär).' },
+      { name: 'Gheymeh', price: '189 kr', desc: 'Köttgryta med gula linser, körsbärstomater, torkad lime, serveras med saffransris.' },
+      { name: 'Veg. Gheymeh – Bademjan', price: '189 kr', desc: 'Gryta med gula linser, körsbärstomater, torkad lime och ugnsrostade auberginer, serveras med saffransris.', tag: 'Vegan Friendly' },
+      { name: 'Ghormeh-Sabzi', price: '189 kr', desc: 'Köttgryta med örter, bönor och torkad lime, serveras med saffransris.' },
+      { name: 'Veg. Ghormeh-Sabzi', price: '189 kr', desc: 'Gryta med örter, bönor och torkad lime, serveras med saffransris.', tag: 'Vegan Friendly' },
+      { name: 'Baghali-Polo Mahiche', price: '259 kr', desc: 'Långkokt lammlägg serveras med saffransris med bondbönor och dill.' },
+      { name: 'Tahchin', price: '189 kr', desc: 'Marinerad kyckling i yoghurt och ägg tillagad som en "Rice-Cake" med saffransris, toppad med zereshk.', tag: 'Serveras endast lördagar', isWarningTag: true },
+      { name: 'Ash Reshte', price: '119 kr', desc: 'Vegetarisk örtsoppa med bönor och nudlar.', tag: 'Vegetarisk' },
+      { name: 'Abgoosht', price: '249 kr', desc: 'Traditionell köttsoppa med bönor och tomat, serveras med Sangak-bröd och färska örter.' }
     ]
   },
   {
     id: 'mazeh',
-    label: 'Mazeh',
-    note: 'Mazeh-tallrik: välj 3 valfria mazeh från deli-disken för 189 kr. Köp dem också var för sig, liten eller stor.',
+    label: 'Mazeh-tallrik',
+    note: 'Kombinera 3 valfria Mazeh från deli-disken för 189 kr, eller köp separat i liten/stor portion.',
     dishes: [
-      { name: 'Morgh', price: 'Tallrik', desc: 'Ugnsgrillad kycklingfilé.' },
-      { name: 'Olovieh', price: '179', smallPrice: '95', desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.' },
-      { name: 'Kashke-Bademjan', price: '179', smallPrice: '95', desc: 'Ugnsrostade auberginer i röra med matlagningsyoghurt, rostad lök, vitlök, valnötter och mynta.', tag: 'Vegetarisk' },
-      { name: 'Hummus', price: '159', smallPrice: '79', desc: 'Kikärter, tahini, olivolja, färsk vitlök och citronjuice.', tag: 'Vegan' },
-      { name: 'Koo-Koo', price: '169', smallPrice: '89', desc: 'Örtomelett med zereshk och vitlök.', tag: 'Vegetarisk' },
-      { name: 'Baghali-Polo', price: 'Tallrik', desc: 'Saffransris med dill och bondbönor.', tag: 'Vegetarisk' }
+      { name: 'Morgh', price: '189 kr', desc: 'Ugnsgrillad kycklingfilé.' },
+      { name: 'Kashke-Bademjan', price: 'Stor 179 kr', smallPrice: 'Liten 95 kr', desc: 'Ugnsrostade auberginer i röra med matlagningsyoghurt, rostad lök, färsk vitlök, valnötter och mynta.', tag: 'Vegetarisk' },
+      { name: 'Olovieh', price: 'Stor 179 kr', smallPrice: 'Liten 95 kr', desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.' },
+      { name: 'Hummus', price: 'Stor 169 kr', smallPrice: 'Liten 89 kr', desc: 'Kikärter, tahini, olivolja, färsk vitlök och citronjuice.', tag: 'Vegan Friendly' },
+      { name: 'Koo-Koo', price: 'Stor 169 kr', smallPrice: 'Liten 89 kr', desc: 'Vegetarisk örtomelett med zereshk (berberisbär), örter och vitlök.', tag: 'Vegetarisk' },
+      { name: 'Baghali-Polo (vegetarisk)', price: 'Tallrik 189 kr', desc: 'Saffransris med dill och bondbönor.', tag: 'Vegetarisk' }
     ]
   },
   {
-    id: 'sallad',
-    label: 'Sallader och wraps',
+    id: 'sallader',
+    label: 'Sallader',
     note: 'Alla sallader serveras med blandsallad, gurka, tomat och säsongens grönsaker.',
     dishes: [
-      { name: 'Grillad kycklingfilé', price: '159', desc: 'Med fetaost och avokado, eller chèvre och rödbetor.' },
-      { name: 'Grillad halloumi', price: '169', desc: 'Med ugnsrostad aubergine, avokadocrème och säsongens frukt.' },
-      { name: 'Panir Sabzi wrap', price: '109', desc: 'Fetaost, valnötter, mynta, gurka och tomat.' },
-      { name: 'Koo-Koo wrap', price: '109', desc: 'Örtomelett med zereshk, sallad, tomat och saltgurka.' },
-      { name: 'Morgh wrap', price: '109', desc: 'Kyckling, bulgur, hummus, pickles, tomat och persilja.' },
-      { name: 'Olovieh wrap', price: '109', desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.' }
+      { name: 'Grillad kycklingfilé', price: '159 kr', desc: 'Serveras med fetaost och avokado eller chèvre och rödbetor.' },
+      { name: 'Grillad halloumi', price: '169 kr', desc: 'Ugnsrostad aubergine, avokadocrème och säsongens frukt.', tag: 'Vegetarisk' }
+    ]
+  },
+  {
+    id: 'wraps',
+    label: 'Wraps',
+    note: 'Färska persiska wraps – perfekt lunch att äta här eller ta med.',
+    dishes: [
+      { name: 'Panir Sabzi wrap', price: '119 kr', desc: 'Fetaost, valnötter, mynta, gurka och tomat.', tag: 'Vegetarisk' },
+      { name: 'Koo-Koo wrap', price: '119 kr', desc: 'Örtomelett med zereshk (berberisbär), sallad, tomat och saltgurka.', tag: 'Vegetarisk' },
+      { name: 'Morgh wrap', price: '119 kr', desc: 'Kyckling, bulgur, hummus, pickles, tomat och persilja.' },
+      { name: 'Olovieh wrap', price: '119 kr', desc: 'Kycklingröra med potatis, ägg, majonnäs, ärtor och saltgurka.' }
+    ]
+  },
+  {
+    id: 'tillbehor',
+    label: 'Tillbehör',
+    note: 'Traditionella persiska tillbehör och smårätter.',
+    dishes: [
+      { name: 'Torshi', price: '59 kr', desc: 'Sima Delis egna inlagda grönsaker.', tag: 'Vegan' },
+      { name: 'Mastokhiar', price: '39 kr', desc: 'Yoghurt blandad med gurka och mynta.', tag: 'Vegetarisk' },
+      { name: 'Mastomoosir', price: '39 kr', desc: 'Yoghurt med vildlök.', tag: 'Vegetarisk' },
+      { name: 'Zeytoon Parvardeh', price: '49 kr', desc: 'Oliver marinerade med granatäpple, vitlök, valnötter, mynta och örter.', tag: 'Vegan' },
+      { name: 'Salad Shirazi', price: '39 kr', desc: 'Tomat, gurka, rödlök, färskpressad citronjuice och olivolja.', tag: 'Vegan' }
     ]
   },
   {
     id: 'frukost',
-    label: 'Frukost',
-    note: 'Barbari-bröd ingår i alla frukosträtter. Extra bröd 20 kr.',
+    label: 'Persisk frukost',
+    note: 'Barbari-bröd serveras med alla frukosträtter.',
     dishes: [
-      { name: 'Nimro', price: '79', desc: 'Stekta ägg med barbari-bröd.' },
-      { name: 'Noon Panir', price: '89', desc: 'Bröd, fetaost, gurka och tomat.' },
-      { name: 'Persisk omelett', price: '139', desc: 'Ägg med färska tomater och barbari-bröd.' },
-      { name: 'Sobhane-tallrik', price: '149', desc: 'Smör, mascarpone, marmelad eller honung, fetaost, gurka, tomater, färska örter, halvardeh, oliver och valnötter.' },
-      { name: 'Halim', price: '109', desc: 'Persisk gröt. Innehåller kött, vete och smör.' }
+      { name: 'Nimro', price: '89 kr', desc: 'Stekta ägg med barbari-bröd.' },
+      { name: 'Noon Panir', price: '89 kr', desc: 'Bröd, fetaost, gurka och tomat.', tag: 'Vegetarisk' },
+      { name: 'Persisk omelett', price: '139 kr', desc: 'Ägg med färska tomater och barbari-bröd.' },
+      { name: 'Sobhane-tallrik', price: '149 kr', desc: 'Smör, mascarpone, marmelad/honung, fetaost, gurka, tomater, färska örter, halvardeh, oliver och valnötter.' },
+      { name: 'Halim', price: '119 kr', desc: 'Persisk gröt (innehåller kött, vete, smör).' },
+      { name: 'Extra Barbari bröd', price: '20 kr', desc: 'Färskt traditionellt persiskt bröd.' }
     ]
   },
   {
     id: 'sott',
-    label: 'Sött och tillbehör',
-    note: 'Baklava och shirini innehåller smör och nötter.',
+    label: 'Något sött',
+    note: 'Traditionella persiska desserter och bakverk.',
     dishes: [
-      { name: 'Sholeh Zard', price: '59', desc: 'Rispudding med saffran, kanel och riven mandel.', tag: 'Vegan' },
-      { name: 'Baklava', price: '29', desc: 'Innehåller smör och nötter.' },
-      { name: 'Shirini', price: '29', desc: 'Persiska kakor. Innehåller smör och nötter.' },
-      { name: 'Torshi', price: '59', desc: 'Sima Delis egna inlagda grönsaker.' },
-      { name: 'Mastokhiar', price: '39', desc: 'Yoghurt med gurka och mynta.' },
-      { name: 'Mastomoosir', price: '39', desc: 'Yoghurt med vildlök.' },
-      { name: 'Zeytoon Parvardeh', price: '49', desc: 'Oliver marinerade med granatäpple, vitlök, valnötter, mynta och örter.' },
-      { name: 'Salad Shirazi', price: '39', desc: 'Tomat, gurka, rödlök, färskpressad citronjuice och olivolja.' }
+      { name: 'Sholeh Zard', price: '59 kr', desc: 'Rispudding smaksatt med saffran, kanel och riven mandel.', tag: 'Vegan Friendly' },
+      { name: 'Baklava', price: '39 kr', desc: 'Innehåller även smör och nötter.' },
+      { name: 'Shirini', price: '39 kr', desc: 'Persiska kakor (innehåller även smör och nötter).' }
     ]
   },
   {
     id: 'dryck',
     label: 'Drycker',
     dishes: [
-      { name: 'Espresso', price: '29' },
-      { name: 'Dubbel espresso', price: '39' },
-      { name: 'Cappuccino', price: '39' },
-      { name: 'Café latte', price: '39' },
-      { name: 'Varm choklad', price: '39' },
-      { name: 'Kaffe', price: '39' },
-      { name: 'Chai, ghand-pahlu', price: '39' },
-      { name: 'Chai Nabat', price: '49', desc: 'Te med sockerklubba.' },
-      { name: 'Ört-te', price: '49', desc: 'Med sockerklubba.' },
-      { name: 'Doogh', price: '39', desc: 'Innehåller yoghurt och mynta.' },
-      { name: 'Läsk', price: '39' },
-      { name: 'Granatäppeljuice', price: '39' },
-      { name: 'Apelsinjuice', price: '39' }
+      { name: 'Espresso', price: '35 kr' },
+      { name: 'Dubbel espresso', price: '39 kr' },
+      { name: 'Cappuccino', price: '45 kr' },
+      { name: 'Café latte', price: '45 kr' },
+      { name: 'Varm choklad', price: '39 kr' },
+      { name: 'Kaffe', price: '39 kr' },
+      { name: 'Chai ghand-pahlu', price: '39 kr' },
+      { name: 'Chai Nabat', price: '49 kr', desc: 'Te serveras med persisk sockerklubba.' },
+      { name: 'Ört-te', price: '49 kr', desc: 'Med persisk sockerklubba.' },
+      { name: 'Läsk', price: '39 kr' },
+      { name: 'Doogh', price: '39 kr', desc: 'Innehåller yoghurt och mynta.' },
+      { name: 'Granatäppeljuice', price: '39 kr' },
+      { name: 'Apelsinjuice', price: '39 kr' }
     ]
   }
 ];
@@ -290,30 +305,19 @@ export const MenuLayoutSoulFood: React.FC<MenuLayoutProps> = ({ onOpenBooking, o
               </div>
             </div>
 
-            {/* Right: Plate Illustration (Persian Rice, Berberis & Dill Garnishes) */}
+            {/* Right: Official Sima Deli Logo Medallion */}
             <div className="flex items-center justify-center">
-              <svg
-                className="w-full max-w-[380px] sm:max-w-[420px] h-auto drop-shadow-sm"
-                viewBox="0 0 400 400"
-                role="img"
-                aria-label="Tallrik med saffransris, berberisbär och örter"
-              >
-                <circle cx="200" cy="200" r="190" fill="#FFFFFF" stroke="#DCE1DC" strokeWidth="2" />
-                <circle cx="200" cy="200" r="168" fill="none" stroke="#0B6E75" strokeWidth="3" strokeDasharray="2 10" strokeLinecap="round" />
-                <circle cx="200" cy="200" r="132" fill="#E7A21B" />
-                <circle cx="200" cy="200" r="132" fill="none" stroke="#231A2B" strokeOpacity="0.12" strokeWidth="2" />
-                <g fill="#A3203B">
-                  <circle cx="150" cy="150" r="9" /><circle cx="215" cy="125" r="8" /><circle cx="262" cy="170" r="9" />
-                  <circle cx="130" cy="215" r="8" /><circle cx="190" cy="190" r="10" /><circle cx="250" cy="235" r="9" />
-                  <circle cx="170" cy="260" r="8" /><circle cx="225" cy="285" r="9" /><circle cx="285" cy="215" r="7" />
-                  <circle cx="205" cy="230" r="7" /><circle cx="160" cy="105" r="6" />
-                </g>
-                <g stroke="#0B6E75" strokeWidth="5" strokeLinecap="round">
-                  <path d="M170 135l14 -9" /><path d="M235 150l12 10" /><path d="M148 185l-12 12" /><path d="M265 200l14 -4" />
-                  <path d="M200 160l4 -15" /><path d="M180 232l-14 4" /><path d="M240 262l-8 12" /><path d="M135 245l12 8" />
-                  <path d="M270 140l10 -8" /><path d="M200 300l-6 -12" />
-                </g>
-              </svg>
+              <div className="relative w-full max-w-[340px] sm:max-w-[400px] aspect-square rounded-full bg-white border-2 border-[#DCE1DC] shadow-lg flex items-center justify-center p-8 sm:p-12 group transition-all duration-300 hover:shadow-xl">
+                {/* Decorative dashed inner circle ring inspired by the reference design */}
+                <div className="absolute inset-3.5 sm:inset-5 rounded-full border-2 border-dashed border-[#0B6E75]/35 pointer-events-none" />
+                <img
+                  src="/images/logo.png"
+                  alt="Sima Deli"
+                  className="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-105"
+                  width="360"
+                  height="360"
+                />
+              </div>
             </div>
 
           </div>
